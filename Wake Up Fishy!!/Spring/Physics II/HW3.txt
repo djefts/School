@@ -1,0 +1,40 @@
+Mechanical Waves; use the speed of sound in air at 20 deg C to be 344 m/s; consider all numerical values to be at least two significant figures (even if I didn't write them that way).
+
+
+1) Find: (a) the wavelength of a sound wave in air with frequency 784 Hz, and the period in milliseconds; (b) calculate the wavelength for a sound wave one octave higher (factor of two frequency increase).
+
+
+2) Giant ocean waves can be created by earthquakes. Observations of such waves in one case measured a wavelength of 800 km and a period of one hour.  Calculate the wave's speed in m/s and in km/hr.  If the wave came on shore at this speed, would it likely cause damage?
+
+
+3) (a) Our ears are sensitive to sound over a frequency range approximately 20Hz to 20kHz on average.  What range of wavelengths does this correspond to? (b) Our eyes are sensitive to EM radiation over a wavelength range approximately 400 nm to 700 nm ("light") on average. What range of frequencies is this? 
+
+
+4) A transverse wave on a string has a wave speed of 8m/s, an amplitude of 7cm and a wavelength of 32cm.  The wave is traveling in the -x direction, and at t=0 the x=0 end of the string has a maximum upward displacement. (a) find the frequency, period and angular wave number of the wave. (b) write a function describing the wave. (c) find the transverse displacement of a point at x=0.36m at time t=0.15sec. (d) what time elapses between the instant in part (c), until that same point has its maximum upward displacement?
+
+
+5) Which of the following functions satisfies the "wave equation" p.77 in the text? 
+(a) Y=Acos(kx + (omega)t); (b) Y=Asin(kx + (omega)t); (c) Y=A[coskx + cos(omega t)]; (d) for the function in (b), find the transverse velocity and acceleration of a point at position x.
+
+
+6) Show that the equation Y=Acos{f2(pi)[(x/v) - t]}  can be rewritten as
+Y=Acos{(2(pi)/lambda)[x - vt]}. Use this to find the transverse velocy of a point on the string the wave is traveling on.  Under what circumstances is this equal to the propagation speed v?  Less than v?  Greater than v?
+
+
+7) What is the necessary tension in a string of length 2.5m and mass 0.12kg for transverse waves with f=40Hz to have a wavelength of 75cm?
+
+
+8) A 1.5m length of string with weight 0.0125N is attached to the ceiling on one end, and on the other end hangs a mass of weight W.  Neglect the variation in string tension along its length due to the weight of the string itself.  Waves are found to travel up the string described by the equation:
+
+Y={8.5mm}cos{(172/m)x - (4830/sec)t}
+
+(a) how long does it take for a pulse to travel the full length of the string?
+(b) find the weight W
+(c) how many wavelengths are on the string at any instant of time?
+(d) write an equation for waves traveling down the string.
+
+
+9) A wire with mass 3g and length 80cm has a tension of 25N.  A wave travels along the wire with f=120Hz and amplitude 1.6mm. (a) calculate the average power carried by the wave. (b) what is the average power if the wave amplitude is halved?
+
+
+10) A string on a musical instrument is 75cm long with a mass of 8.75g. (a) what string tension is required to produce sound with a wavelength of 0.765m if the string is vibrating in its second overtone (i.e. third harmonic)?  (b) what frequency sound is produced if the string vibrated in its fundamental mode?

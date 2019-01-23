@@ -1,0 +1,44 @@
+A Job Has:
+    Duration (1-30 Days)
+    # of workers of type A, B, C
+    1 Job Manager
+User enters jobs for a 30 day period
+Program schedules jobs and figures out minimum number of workers
+
+
+Job Class
+    int duration                //1-30
+    int startDate
+    int numWorkersA
+    int numWorkersB
+    int numWorkersC
+
+    Job(start, duration, A, B, C)
+
+    //setters
+    //getters
+
+
+Workforce Class
+    ArrayList<Worker> workers
+
+    void addWorker(char type)
+        workers.add(new Worker)
+
+
+Worker Class
+    char workerType
+    bool working
+
+    Worker()
+    Worker(char type, boolean working)
+
+
+Scheduler Class
+    ArrayList<Job> jobs
+
+    void addJob(Job)
+        add
+
+
+zip -r ProjectDeliverable5.zip ~/IdeaProjects/DungeonsAndDragonsCharacterCreator/src

@@ -1,0 +1,140 @@
+\documentclass[11pt]{article}     
+
+\usepackage{fullpage}
+\usepackage[table,x11names]{xcolor}
+
+\renewcommand{\baselinestretch}{1.0}
+\usepackage{amsmath,amssymb,amsfonts} % Typical maths resource packages
+%\usepackage{graphicx}                 % Packages to allow inclusion of graphics
+%\usepackage{color}                    % For creating coloured text and background
+%\usepackage{multicol}
+%\usepackage[all]{xy}
+
+\oddsidemargin 0cm
+\evensidemargin 0cm
+
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{proposition}[theorem]{Proposition} 
+%\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+%\newtheorem{definition}[theorem]{Definition}
+
+% ******* User defined commands  *****************
+
+\def\R{\mathbb{ R}}
+\def\S{\mathbb{ S}}
+
+\begin{document}
+{\Large {\bf CS 222 Homework 1 [100 Points Total] David Jefts}}  \\
+
+\noindent \textbf{Online Submission via Canvas Only!} If you are not able to produce a PDF version, you can scan or take picture of your homework for submission. No paper submission will be accepted.\\
+
+\noindent \textbf{Write your name on this sheet}. \textbf{No name or cover sheet will miss 2 points}
+
+Write clearly, show all work, partial credits are your friend! 
+
+\vspace{0.2in}
+
+
+
+%\vspace{0.2in}
+
+\begin{enumerate}
+  \item (30 pts) Given {\bf P}: $\neg{( \neg{p} \vee \neg{q} \vee \neg{(r \vee \neg{r} )} )} \equiv p \wedge q$
+  \begin{enumerate}
+    \item Prove {\bf P} by truth table.
+    
+  \begin{tabular}{ | c | c | c | c | c | c | c | c | c | }
+    \hline
+    $p$ & $q$ & $r$ & $\neg p$ & $\neg q$ & $\neg (r \vee \neg r)$ & $( \neg p \vee \neg q \vee \neg (r \vee \neg r ) )$ & $\neg( \neg p \vee \neg q \vee \neg(r \vee \neg r))$ & $p \wedge q$\\
+    \hline
+    T & T & T & F & F & F & F & T & T \\  \hline
+    T & T & F & F & F & F & F & T & T \\  \hline
+    T & F & T & F & T & F & T & F & F \\  \hline
+    T & F & F & F & T & F & T & F & F \\  \hline
+    F & T & T & T & F & F & T & F & F \\  \hline
+    F & T & F & T & F & F & T & F & F \\  \hline
+    F & F & T & T & T & F & T & F & F \\  \hline
+    F & F & F & T & T & F & T & F & F \\  \hline
+    \end{tabular}
+    \item Prove {\bf P} by using the Laws of Logic. \\
+      \begin{tabular}{r l}
+      $\neg (\neg p \vee \neg q \vee \neg(r \vee \neg r))$ & Negation Law \\
+      $\equiv \neg(\neg p \vee \neg q \vee \neg T)$ & DeMorgan's Law \\
+      $\equiv \neg(\neg p \vee \neg q \vee F)$ & Identity Law \\
+      $\equiv \neg(\neg p \vee \neg q)$ & DeMorgan's Law \\
+      $\equiv p \wedge q$\\
+      \end{tabular}
+  \end{enumerate}
+    \item (20 pts) Are $(p\implies q) \rightarrow r$ and $p \rightarrow (q\rightarrow r)$ logically equivalent? Show steps to support your conclusion.\\
+    \begin{tabular}{ r | c | l }
+      $(p\rightarrow q) \rightarrow r$ & 1 & $p \rightarrow (q\rightarrow r)$ \\ \hline
+      
+      $(p\rightarrow q) \rightarrow r$ &2& $p \rightarrow (q\rightarrow r)$ \\
+      $(\neg p \vee q) \rightarrow r$ &3& $p \rightarrow (\neg q \vee r)$ \\
+      $\neg(\neg p \vee q) \vee r$ &4& $\neg p \vee (\neg q \vee r)$ \\
+      $(p \wedge \neg q) \vee r$ &5& $(\neg p \vee \neg q) \vee r$ \\
+      $(p \wedge \neg q) \vee r$ &$\ne$& $\neg (p \wedge q) \vee r$ \\
+      \end{tabular}
+      
+      \begin{tabular}{ | c | c | c | c | c | c | c |}
+        \hline
+        $p$ & $q$ & $r$ & $(p \rightarrow q)$ & $(q \rightarrow r)$ & $(p\rightarrow q) \rightarrow r$ & $p \rightarrow (q\rightarrow r)$ \\ \hline
+        T & T & T & T & T & T & T \\  \hline
+        T & T & F & T & F & F & F \\  \hline
+        T & F & T & F & T & T & T \\  \hline
+        T & F & F & F & T & T & T \\  \hline
+        F & T & T & T & T & T & T \\  \hline
+        \rowcolor{yellow}F & T & F & T & F & F & T \\  \hline
+        F & F & T & T & T & T & T \\  \hline
+        \rowcolor{yellow}F & F & F & T & T & F & T \\  \hline
+      \end{tabular}
+      
+    \item (30 pts) Let p and q be the propositions: \textbf{p}: I bought a lottery ticket this week; \textbf{q}: I won the million dollar jackpot. Express each of these propositions as an English sentence.
+    \begin{itemize}
+    	\item $\neg p$
+	\begin{itemize}
+	  \item I did not buy a lottery ticket this week.
+	  \end{itemize}
+    	\item $p \vee q$
+	\begin{itemize}
+	  \item I bought a lottery ticket this week or I win the million dollar jackpot.
+	  \end{itemize}
+    	\item $p \rightarrow q$
+	\begin{itemize}
+	  \item If I buy a lottery ticket then I will win the million dollar jackpot.
+	  \end{itemize}
+    	\item $p \wedge q$
+	\begin{itemize}
+	  \item I bought a lottery ticket this week and won the million dollar jackpot.
+	  \end{itemize}
+    	\item $p \leftrightarrow q$
+	\begin{itemize}
+	  \item I will win the million dollar jackpot if, and only if, I buy a lottery ticket.
+	  \end{itemize}
+    	\item $\neg p \rightarrow \neg q$
+	\begin{itemize}
+	  \item If I do not buy a lottery ticket this week, then I will not win the million dollar jackpot.
+	  \end{itemize}
+    \end{itemize}
+    \item (20 pts) Given the truth table, construct the its logical formula using true rows. Can you simplify your formula? If so, how?\\
+    
+    \begin{tabular}{ |c| c| c| }
+      \hline
+      p & q & Output\\
+      \hline
+      T&T&T\\  \hline
+      T&F&T\\  \hline
+      F&T&F\\  \hline
+      F&F&F\\  \hline 
+      \end{tabular}
+      
+    \vspace{0.1in}
+    \begin{tabular}{r}
+      $[(p \wedge q) \vee (p \wedge \neg q)] \equiv p \wedge (q \vee \neg q) \equiv p \wedge T \equiv p$\\
+      \end{tabular}
+  \end{enumerate}
+
+\end {document}
+

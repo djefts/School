@@ -1,0 +1,78 @@
+\documentclass[11pt]{article}     
+
+\usepackage{fullpage}
+
+\renewcommand{\baselinestretch}{1.0}
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+\usepackage{amsmath,amsthm,amssymb,amsfonts} % Typical maths resource packages
+%\usepackage{graphicx}                 % Packages to allow inclusion of graphics
+%\usepackage{color}                    % For creating coloured text and background
+%\usepackage{multicol}
+%\usepackage[all]{xy}
+
+\oddsidemargin 0cm
+\evensidemargin 0cm
+
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{proposition}[theorem]{Proposition} 
+%\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+%\newtheorem{definition}[theorem]{Definition}
+
+
+% ******* User defined commands  *****************
+
+
+\def\R{\mathbb{ R}}
+\def\S{\mathbb{ S}}
+
+\begin{document}
+{\Large {\bf CS 222 Homework 3 [90 Points Total] \hfill David Jefts}}\\
+
+\noindent \textbf{Online Submission via Canvas Only!} If you are not able to produce a PDF version, you can scan or take picture of your homework for submission. No paper submission will be accepted.\\
+
+\noindent \textbf{Write your name on this sheet}. \textbf{No name or cover sheet will miss 2 points}
+
+\begin{enumerate}
+    \item (20 points) Let A=[0,2,4,6,8,10], B=[0,1,2,3,4,5,6], and C=[4,5,6,7,8,9,10]. Find
+    \begin{enumerate}
+    	\item $A\cap B\cap C$
+	\begin{enumerate}
+	  \item $4, 6, 8, 10$
+	  \end{enumerate}
+    	\item $(A\cup B)\cap C$
+	\begin{enumerate}
+	  \item $4, 5, 6$
+	  \end{enumerate}
+    	\item $(A\cap B)\cup C$
+	\begin{enumerate}
+	  \item $4, 5, 6, 7, 8, 9, 10$
+	  \end{enumerate}
+	\end{enumerate}
+   
+
+    \item (30 pts) Determine whether each of these function is a bijection from domain $R$ to $R$. You need to explain why each function is (or is not) a bijection.
+    \begin{enumerate}
+    	\item $f(x)=2x+1$\\
+	\indent This only outputs odd numbers therefore it cannot be a bijection due to the function not allowing every real number to be outputted.
+    	\item $f(x)=x^2+1$\\
+	\indent Similar to part $a$, this function does not allow every number from $R$ to $R$ to be outputted, as a square function will only allow positive numbers to be the output. 
+    	\item $f(x)=x^3$\\
+	\indent This function is a bijection, because every single number from $-\infty$ to $\infty$ can be both inputted and/or outputted, with each input only having one output and visa versa.
+    \end{enumerate}
+
+\item (15 points) Find a simple formula for $a_n$ if the first 10 terms of the sequence $\{a_n\}$ are 1, 7, 25, 79,
+241, 727, 2185, 6559, 19681, 59047. [Hint: these numbers related to value 3] \\
+    \tab$3^n-2$
+
+
+\item (25 points) Given the fact that $\sum_{i=1}^ni^2=\frac{n(n+1)(2n+1)}{6}$, calculate $\sum_{i=50}^{100}i^2$\\
+  \tab $\sum_{n=50}^{100}\frac{2n^3+3n^2+n}{6} \Rightarrow \frac{2n^3+3n^2+n}{6}\Big|_{50}^{100}$ \\\\
+  \tab$= \frac{2(100)^3+3(100)^2+(100)}{6}-\frac{2(50)^3+3(50)^2+(50)}{6} = \frac{2000000+30000+100}{6}-\frac{250000+7500+50}{6}$ \\\\
+  \tab$= \frac{2030100}{6}-\frac{257550}{6} = 338350-42925 = \bf{295425}$
+
+ \end{enumerate}
+
+\end {document}
+

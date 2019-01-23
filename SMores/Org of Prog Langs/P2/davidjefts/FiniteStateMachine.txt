@@ -1,0 +1,17 @@
+Language =a,b# do not change this line. Must be in alphabetical order.
+TestStrings =abb,a,b,aa,bb,,aab,abab, ,c,aabbcc,aaaab# takes any number of test strings.
+
+FSM States: #do not change this line. Each state takes a separate line, end each line with a pound symbol
+! defines a regular state
+* defines a final state
+% defines the trash state
+@[input]->[State] is the format for a state change. List the states in alphabetical order. Undefined states will cause errors.
+The number is the state number. Please do not reuse numbers. 0 is reserved for the initial state. The regex definition is optional.
+#################
+#Regex expression---- a*b
+!0
+@a->0
+@b->1
+*1
+@a->%
+@b->%

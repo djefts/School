@@ -1,0 +1,36 @@
+Lab 6 Worksheet,by,David Jefts,,java Test ,,,
+Test #,X,Y,Expected Output,Actual Output (Black Box),Actual Output (White Box),Requirement,Why?
+1,10, ,"Error - Must have 2 command line argumentsExample:  java Test 20 16","Error - Must have 2 command line argumentsExample:  java Test 20 16","Error - Must have 2 command line argumentsExample:  java Test 20 16",1,Less than 2 numerical inputs
+2,10,10 10,"Error - Must have 2 command line argumentsExample:  java Test 20 16",Error - Invalid sum not equal to 36,"Error - Must have 2 command line argumentsExample:  java Test 20 16",1,More than 2 numerical inputs
+3,Hello_World,,"Error - Must have 2 command line argumentsExample:  java Test 20 16","Error - Must have 2 command line argumentsExample:  java Test 20 16","Error - Must have 2 command line argumentsExample:  java Test 20 16",1,Less than 2 inputs
+4,hello,world,Error - Non-numeric command line arguments,Error - Non-numeric command line arguments,Error - Non-numeric command line arguments,1,2 non-numerical inputs
+5,10,8,Error - Invalid sum not equal to 36,Error - Invalid sum not equal to 36,Error - Invalid sum not equal to 36,2,Values are are less than 10 but don't equal 36
+6,20,20,Error - Invalid sum not equal to 36,Error - Invalid sum not equal to 36,Error - Invalid sum not equal to 36,2,Values don't equal 36
+7,18,18,Error - Arguments are equal,Error - Arguments are equal,Error - Arguments are equal,3,2 equal values that add to 36
+8,30,6,Error - Argument(s) less than 10,Error - Argument(s) less than 10,Error - Argument(s) less than 10,3,Values add to 36 but one is less than 10
+9,17,19,323,323,323,5,Values add to 36 and X at upper limit
+10,19,17,161.5,323,161.5,5,Values add to 36 and X greater than first limit
+11,15,21,315,315,315,5,Values add to 36 and X below first upper limit
+12,25,11,19.64285714,19.64285714,19.64285714,5,Add to 36 and 18<=X<36
+13,35,1,Error - Argument(s) less than 10,Error - Argument(s) less than 10,Error - Argument(s) less than 10,3,"Add to 36 and 18<=X<36, but Y<10"
+,,,,,,,
+,,,,,,,
+1. What is blackbox testing?,,,,,,,
+Testing before viewing the code,,,,,,,
+,,,,,,,
+2. What is whitebox testing?,,,,,,,
+Testing while looking at and changing the source code,,,,,,,
+,,,,,,,
+3. Why are boundary values particularly important to consider when developing test cases?,,,,,,,
+To make sure the source code has the correct bounds in it,,,,,,,
+,,,,,,,
+4. Why is it important to know which requirement is being tested by a particular test case?,,,,,,,
+To keep track of what requirements have and haven't been met,,,,,,,
+,,,,,,,
+5. Provide feedback:,,,,,,,
+(a) Which lab section did you attend? (Section # or day of week),,,,,,,
+Section 1 Tuesday,,,,,,,
+(b) What did you like about the lab? What did you dislike?,,,,,,,
+Pretty cool,,,,,,,
+(c) What would you change about this lab to improve it?,,,,,,,
+Nothing,,,,,,,

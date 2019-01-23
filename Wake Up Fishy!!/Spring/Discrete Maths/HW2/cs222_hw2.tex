@@ -1,0 +1,135 @@
+\documentclass[11pt]{article}     
+
+\usepackage{fullpage}
+\usepackage[table,x11names]{xcolor}
+
+
+\renewcommand{\baselinestretch}{1.0}
+\usepackage{amsmath,amsthm,amssymb,amsfonts} % Typical maths resource packages
+%\usepackage{graphicx}                 % Packages to allow inclusion of graphics
+%\usepackage{color}                    % For creating coloured text and background
+%\usepackage{multicol}
+%\usepackage[all]{xy}
+
+\oddsidemargin 0cm
+\evensidemargin 0cm
+
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{proposition}[theorem]{Proposition} 
+%\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+%\newtheorem{definition}[theorem]{Definition}
+
+
+% ******* User defined commands  *****************
+
+
+\def\R{\mathbb{ R}}
+\def\S{\mathbb{ S}}
+
+\begin{document}
+{\Large {\bf CS 222 Homework 2 [125 Points Total] }}  \\
+
+\noindent Write your name on this sheet, and turn it in as a cover sheet with your completed homework. You can turn this assignment in during class or submit a e-copy via Canvas before the deadline. Do not place under the door of the instructor's office.
+
+\vspace{0.2in}
+\noindent Write clearly, show all work, and write formulas and assumptions used to solve a problem. Do not staple, dog ear, or otherwise attach your papers together. 
+
+
+\begin{enumerate}
+  \item (25 pts) Show whether the following two arguments are valid or not. You need to justify your answer.
+ 
+        \begin{tabular}{r l c}
+          &  $r \rightarrow s$ & \\
+          &  $p \wedge q$ & \\
+          \hline
+          $\therefore $  &  $p \vee s$
+          \end{tabular}
+        
+        \begin{tabular}{|c c c c|c c|c c|c|}
+          \hline
+          $p$ & $q$ & $r$ & $s$ & $r \rightarrow s$ & $p \wedge q$ & $(r \rightarrow s) \wedge (p \wedge q)$ & $p \vee s$ & $(r \rightarrow s) \wedge (p \wedge q) \rightarrow (p \vee s$) \\
+          \hline
+          F & F & F & F & T & F & F & F & T \\
+          F & F & F & T & T & F & F & T & T \\
+          F & F & T & F & F & F & F & F & T \\
+          F & F & T & T & T & F & F & T & T \\
+          F & T & F & F & T & F & F & F & T \\ 
+          F & T & F & T & T & F & F & T & T \\
+          F & T & T & F & F & F & F & F & T \\
+          F & T & T & T & T & F & F & T & T \\
+          T & F & F & F & T & F & F & T & T \\
+          T & F & F & T & T & F & F & T & T \\
+          T & F & T & F & F & F & F & T & T \\
+          T & F & T & T & T & F & F & T & T \\
+          T & T & F & F & T & T & T & T & T \\
+          T & T & F & T & T & T & T & T & T \\
+          T & T & T & F & F & T & F & T & T \\
+          T & T & T & T & T & T & T & T & T \\
+          \hline
+          \end{tabular}
+  
+        Valid Argument
+
+        \begin{tabular}{r l c c}
+          &  $p$ $\rightarrow$ $q$  && \\
+          &  $q$ $\wedge$ $r$ && \\
+          \hline
+          $\therefore $  &  $p\vee r$  
+          \end{tabular}
+        \begin{tabular}{|c c c|c c|c|c|c|}
+          \hline
+          $p$ & $q$ & $r$ & $p \rightarrow q$ & $q \vee r$ & $(p \rightarrow q) \wedge (q \vee r)$ & $p \vee r$ & $(r \rightarrow s) \wedge (p \wedge q) \rightarrow (p \vee s$) \\
+          \hline
+     %  1    2     3     4    5     6    7    8
+          F & F & F & T & F & F & F & T \\
+          F & F & T & T & T & T & T & T \\
+          \rowcolor{yellow} F & T & F & T & T & T & F & \bf{F} \\
+          F & T & T & T & T & T & T & T \\
+          T & F & F & F & F & F & T & T \\ 
+          T & F & T & F & T & F & T & T \\
+          T & T & F & T & T & T & T & T \\
+          T & T & T & T & T & T & T & T \\
+          \hline
+          \end{tabular}
+          Not a valid argument \\ \\
+
+  \item (20 pts) Prove by \textbf{existence} proof:  
+    \begin{enumerate}
+      \item  {\bf P}: $\exists$ $x, y$ $\in$ $Z$, $x^4$ = $y^2$. \\
+        Proof: Set x=2 and y=4
+
+      \item  {\bf P}: $\forall$ $x \in Z$, $\exists$ $y \in Z$ such that, $x^4 = y^2$. (Hint, get y in the format of x). \\
+        Proof: $y^2=x^4 \implies y=x^2$ which is a valid function.
+    \end{enumerate}
+
+  \item (20 pts) Using \textbf{direct proof} to show the statement: An integer number $n$ plus its square $n^2$ is always even. 
+    $n+n^2 = 2k$ \\
+    $n=2k \therefore n^2=(2k)^2=4k^2$ \\
+    $2k+4k^2 = 2k \implies 2(k+2k^2)$ which is an even number because anything multiplied by 2 is an even number. \\
+
+  \item (20 pts) Using proof by \textbf{contraposition} to show that $x+y\geq 2 \rightarrow x\geq 1~or~y\geq 1$, where x and y are real numbers. \\
+    Original Statement: $(x+y\geq 2) \rightarrow [x\geq 1 \vee y\geq 1]$
+    Contrapositive: $[x<1 \wedge y<1] \rightarrow (x+y<2)$ \\
+    If x and y were both 1, then x+y = 2. However, based upon the contrapositive statement, neither x nor y can be equal to or greater than 1, therefore the contrapositive is true.
+
+  \item (20 pts) Prove by \textbf{contradiction}: The sum of a rational number and an irrational number is irrational. \\
+    Original Statement: rational + irrational = irrational \\
+    Contradiction: rational + irrational = rational \\
+    rational = r; irrational = i \\\\
+    $r=\dfrac{m}{n} \implies \dfrac{m}{n} + i = \dfrac{m}{n}$ \\\\
+    $i=\dfrac{m}{n}-\dfrac{m}{n}$ \\\\
+    $i=0 \implies$ 0 is not an irrational number, therefore the original claim is true. \\
+    
+  \item (20 pts) Prove that at least one of the real numbers $a_1,a_2,\cdots,a_n$ is greater than or equal to the average of these numbers. \\
+    Claim: $[\dfrac{a_1+ a_2+ a_3+ \cdots + a_n}{n}] \geq a_x$ \\ \\
+    Claim v2: $\forall A \in A=\{a_1, a_2, \cdots, a_n\}, a \in \R, \exists a_x, x \in \R; a_x \geq  \dfrac{\sum_{1}^{n}A}{n} $ \\ \\
+    $A = {1, 2, 3, 4, 5} \rightarrow a_x \geq \dfrac{1+2+3+4+5}{5}$ \\
+    $a_x \geq 3$ \\\\
+    The values 3, 4, and 5 of A all satisfy this claim.
+
+\end{enumerate}
+
+\end {document}
+

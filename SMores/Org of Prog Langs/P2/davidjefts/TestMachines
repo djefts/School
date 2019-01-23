@@ -1,0 +1,39 @@
+#Regex expression---->a*
+*0
+@a->0
+@b->%
+
+#Regex expression---- ab*
+!0
+@a->1
+@b->%
+*1
+@a->%
+@b->1
+
+#Regex expression---- a*b
+!0
+@a->0
+@b->1
+*1
+@a->%
+@b->%
+
+#Regex expression---->(a*b*)*
+*0
+@a->0
+@b->0
+
+#Regex expression---- (a*b*)+
+!0
+@a->1
+@b->2
+!1
+@a->1
+@b->3
+!2
+@a->3
+@b->2
+*3
+@a->3
+@b->3

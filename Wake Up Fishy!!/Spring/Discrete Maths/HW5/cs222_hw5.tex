@@ -1,0 +1,80 @@
+\documentclass[11pt]{article}
+
+\usepackage{fullpage}
+
+\renewcommand{\baselinestretch}{1.0}
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+\usepackage{amsmath,amsthm,amssymb,amsfonts} % Typical maths resource packages
+%\usepackage{graphicx}                 % Packages to allow inclusion of graphics
+%\usepackage{color}                    % For creating coloured text and background
+%\usepackage{multicol}
+%\usepackage[all]{xy}
+
+\oddsidemargin 0cm
+\evensidemargin 0cm
+
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{proposition}[theorem]{Proposition}
+%\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{remark}[theorem]{Remark}
+%\newtheorem{definition}[theorem]{Definition}
+
+
+% ******* User defined commands  *****************
+
+
+\def\R{\mathbb{ R}}
+\def\S{\mathbb{ S}}
+
+\begin{document}
+{\Large {\bf CS 222 Homework 5 [100 Points Total]}}  \\
+
+\noindent \textbf{Online Submission via Canvas Only!} If you are not able to produce a PDF version, you can scan or take picture of your homework for submission. No paper submission will be accepted.\\
+
+\noindent \textbf{Write your name on this sheet}. \textbf{No name or cover sheet will miss 2 points}
+
+
+
+
+\begin{enumerate}
+  \item (50 pts) For the following problems, consider a group of 50 students. There are 8 Computer Engineering (CE) majors, 12 Computer Science (CS) majors, 20 Electrical Engineering (EE) majors, and 10 Software Engineering (SE) majors. There are no dual major students.
+    \begin{enumerate}
+
+      \item (15 pts) Select 7 of the 50 students and line them up from left to right. How many ways can this be done when we consider their individual names, not their majors? Note that the ``left to right'' order matters, e.g, ABC is different as BAC.\\
+      	\tab \textbf{Choose 7 of 50 individual students:} \\\\
+	\tab n Perm r $= \frac{n!}{(n-r)!} = \frac{50!}{(50-7)!} = \frac{50*49*48*47*46*45*44*43!}{43!}$ \\\\
+	\tab $= 50*49*48*47*46*45*44 = \mathbf{5.034\times10^{11}}$ 
+	
+      \item (15 pts) Select 5 of the 50 students and line them up from left to right. How many ways can this be done if we consider only their majors, and not their names? \\
+	\tab Every major has more than 5 people. Choose 5 people each from 1 of 4 majors.\\
+	\tab $\mathbf{4^5 = 1024}$
+     
+     \item (20 pts) The department chair will pay for 12 students to go to a conference. In how many ways can the 12 students be selected if exactly 3 are selected from each major? \\\\
+	\tab n Choose r for all 4 majors: $\frac{n!}{(n-r)!*r!}$ \\\\
+	\tab $\binom{8}{3} * \binom{12}{3} * \binom{20}{3} * \binom{10}{3} = \frac{8!}{(8-3)!*3!}*\frac{12!}{(12-3)!*3!}*\frac{20!}{(20-3)!*3!}*\frac{10!}{(10-3)!*3!}$ \\\\
+	\tab $= 56*220*1140*120 = \mathbf{1685376000}$
+    
+    \end{enumerate}
+
+    \item (20 pts) Suppose an event $e$ has the probability $p(e) = 0.2$ for one trial. What is the probability that $e$ will occur exactly four times in six trials? \\
+    \tab Binomial Distribution!  $nCr\times p^rq^{n-r}$ \\
+    \tab $\binom{6}{4}\times(0.2)^4(0.8)^2 = 15\times0.0016\times.64 = \mathbf{0.01536}$
+
+   
+    \item (15 pts) Suppose an event $e$ has the probability $p(e) = 0.2$ for one trial. Given that $e$ has already occurred four times in a row, what is the probability that $e$ will happen six times in a row? \\\\
+    \tab $P(E | F) = \frac{P(E \cap F)}{P(F)} \tab P(E) = 0.2$ \\
+    \tab $P(F) = (0.2) \times (0.2) \times (0.2) \times (0.2) = 0.0016$ \\
+    \tab Only one possible outcome for $e$ happening 6 times in a row; $(0.2)^6$ \\
+    \tab $P(E | F) = \frac{(0.2)^6}{(0.2)^4} = (0.2)^2 = 0.04$ \\
+    
+    \item (15 pts) Suppose there is a roulette with 2 green, 18 red, and 18 blue. The payout for blue and red are 1:0.5, and the pay out for green is 1:2. For example, if you bet \$X on red and the roulette lands on red, you get \$0.5X reward. If each bet for the roulette is \$10, what is the expected payout (profit) for your bet? \\\\
+    \tab $\frac{2}{38}$ chance to get green, $\frac{18}{38}$ chance to get red, and $\frac{18}{38}$ chance to get blue \\\\
+    \tab 0.0526 chance to get \$2X and 0.9473 chance to get \$.5X \\
+    \tab X = 10 \\\\
+    \tab $.0526\times 2*10 + 0.9473\times .5*10 = 1.0526+4.7368 = 5.7895$ \\
+    \tab $=\mathbf{ \$5.79}$ expected payout for a \$10 bet. 
+
+ \end{enumerate}
+
+\end {document}

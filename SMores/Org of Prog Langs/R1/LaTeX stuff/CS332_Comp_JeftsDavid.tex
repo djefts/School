@@ -1,0 +1,58 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage[numbers]{natbib}
+
+\begin{document}
+
+\title{Parallel and Distributed Computation on a Corporate Level}
+\author{David Jefts}
+\date{December 1st, 2018}
+\begin{titlepage}
+	\centering
+	\maketitle
+	\centering
+	\noindent\makebox[\textwidth]{\includegraphics{cray-inc-logo.png}} % also works with logo.pdf
+	\hfill
+	\vfill
+\end{titlepage}
+
+% For this topic, describe some aspect of the multi- process or multi-processor paradigm. Example topics are: distributed processing paradigms (such as the Message Passing Interface), parallel or distributed machine architectures (such as a Beowulf cluster), a description of a common language used in a parallel or distributed system, a description of common parallel algorithms, or a description of common synchronization schemes.
+
+\setcounter{secnumdepth}{-1}
+\linespread{1.5}
+\onehalfspacing
+
+%%INTRODUCTION
+\section{}
+	This report is about the high-performance computing and multiprocessing research and development performed by Cray Inc., a supercomputer manufacturer based out of Seattle, Washington, United States of America. "Cray Research Inc. was founded in 1972 by Seymour Cray and introduced its first product, the Cray-1, in 1976"~\cite{sec}. Supercomputers are "a class of extremely powerful computers \ldots used primarily for scientific and engineering work requiring exceedingly high-speed computations"~\cite{supercomputer}. Cray, with their Cray-1 supercomputer, was one of the first companies to create a computer capable of performing multiple tasks, or processes, at once. This is called multiprocessing. Cray's Cray-1 computer was also the first attempt at vector processing to fully exploit vector processing~\cite{cray-1}. They accomplished this by using 8 vector array processors working in conjunction to perform functions and solve problems. Cray's research into multiprocessing in all of its forms has created a new industry based on solving extremely complex problems in lengths of time attainable by humans. Most of Cray's customers are universities, scientific laboratories, weather prediction organizations, and astronomers and astrophysicists.
+
+%%BODY
+\section{}
+	Cray was founded in 1972 by Seymour Cray after he left the Control Data Corporation (CDC) to start working on his own ideas for implementing multiprocessing into computers. He left after CDC was unwilling to fully fund his projects and forays into supercomputing~\cite{bio}.
+	
+	The Cray-1 was Cray Research Inc.'s flagship computer. Capable of implementing advanced multiprocessing techniques, it quickly became a very popular for mathematicians and scientists around the world~\cite{glowinski}. Multiprocessing, also known as parallelism or parallel processing, is a way to take advantage of multiple computational systems and increase the total speed of a computer. Many home computers have a small amount of multiprocessing capabilities, as many Computer Processing Units (CPU), or processors, are actually made up of multiple "cores" or processing architectures. This allows them to perform multiple tasks at once, like playing music, connecting to the internet, loading an application, and processing keyboard input.
+	
+	The Cray-1 had successor systems, the Cray-1A, the Cray-1S, and the Cray-1M. After the success of the Cray-1 series, Seymour Cray started working on the Cray-2 while another team from Cray Research Inc. began work on the Cray X-MP. The Cray-2 was marginally faster than the Cray X-MP, even though the latter took advantage of a two-processor, and later four-processor, system. The Cray X-MP and its successor, the Cray Y-MP, are completely multiprocessor systems with a shared memory~\cite{glowinski}. These supercomputers used multiple processors to split up and accomplish tasks, and were also capable of doing vector processing. On a software and programming level, parallelism in these computers is handled by three multitasking strategies~\cite{glowinski}. Macrotasking exploits the parallelism of a problem by "partitioning the computations into N tasks which are simultaneously executed on N processors"~\cite{glowinski}. It is supported on a subroutine level which controls task creation, synchronization, and communication that are determined explicitly by the programmer. Microtasking uses compiler directives created by the programmer. These directives are passed to a preprocessor that generates subroutine calls used by macrotasking. This parallelism is mapped dynamically to the current number of available CPUs~\cite{glowinski}. The final strategy is autotasking, that use code analysis techniques to detect "parallel regions of code without user intervention"~\cite{glowinski}. This improves parallel performance in relation to microtasking by supporting "he flexible definition of parallel regions at any place in a subroutine"~\cite{glowinski}.
+	
+	Seymour Cray left the CEO position of Cray Research Inc after starting the Cray-3 project in order to devote more time to the design. The major change in this design from the Cray-2 was the use of Gallium-Arsenide circuits instead of the then-typical Silicon-based circuitry~\cite{readings}. However, there was not a plethora of investment in circuitry and computer chips made with Gallium-Arsenide, so Seymour Cray created a startup, GigaBit Logic, and used them as an internal supplier~\cite{gigabit}. The Cray-3 development was moved to a new research center in Colorado Springs, Colorado, to focus and streamline development~\cite{parallel}. In 1989 the Y-MP, also developed by Cray, started delivering and then Cray began development on the C90, the Y-MP's successor. The original Cray-2 did not sell well, so management decided to put the Cray-3 on 'low priority' development. The Colorado Springs research center was spun off as a new company, the Cray Computer Corporation (CCC) in November of 1988~\cite{parallel}. Slated to release in 1991, the development started to lag and Lawrence Livermore National Laboratory cancelled its order, further hindering development~\cite{orders}. The system eventually finished development but it only shipped one order in May of 1993, to the National Center for Atmospheric Research (NCAR), and the CCC went bankrupt in 1995. The remains of this company were used to form Cray's final corporation, SRC Computers, Inc. in 1996~\cite{bloomberg}. Seymour Cray died in a tragic accident before he finished development on the Cray-4, and SRC Computers went on to focus on and specialize in reconfigurable computing. 
+	
+	In 1993 Cray Research Inc. fully embraced the capabilities of massively parallel multiprocessing systems and started a five-year project culminating in the Cray T3D and T3E supercomputer series. The Cray Research T3E was the first supercomputer capable of reaching a performance level of 1 TeraFlop, more than one million calculations per second~\cite{teraflop}. These systems did well enough to leave Cray Research as the only supercomputer vendor, other than the NEC Corporation, by the year 2000. 
+	
+	
+%%CONCLUSION
+\section{}
+	Seymour Cray and his companies' multitude of extremely high-performance computation machines has helped out a myriad of scientists and mathematicians in creating and developing new theories and technologies. Cray's research into multiprocessing in all of its forms has created a new industry based on solving extremely complex problems in humanly realistic lengths of time. Cray ushered in a new era of scientific development that has helped push the boundaries of what we know about the Earth and the universe as a whole.
+
+
+
+
+\newpage
+\nocite{*}
+\bibliographystyle{apa}
+\bibliography{r1_bibliography.bib}
+
+
+\end{document}
