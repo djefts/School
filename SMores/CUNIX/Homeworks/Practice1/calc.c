@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
         printf("Usage: calc operand1 operator operand2\n");
         return 1;
     }
-    1
+
     if((isExp = isValidExpression(argv[1], argv[2], argv[3])) == 0) {
         float res;
         int operand1 = atoi(argv[1]); //convert str -> int
