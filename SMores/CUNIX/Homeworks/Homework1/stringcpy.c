@@ -68,11 +68,14 @@ int stringcpy(char *dest, char *src, int n) {
     
     //loop n times copying from src to dest
     int i, count = 0;
-    for(i = 0; i < n && src != '\0'; i++) {
-        dest[i] = src[i];
+    for(i = 0; i < n && *src != '\0'; i++) {
+        *dest = *src;
+        dest++;
+        src++;
         count++;
     }
-    dest[i] = '\0'; //write a null character to the last byte
+    *dest++;
+    *dest = '\0'; //write a null character to the last byte
     
     return count;
 }
