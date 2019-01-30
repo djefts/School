@@ -4,7 +4,7 @@ project(NumA)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(NumA
-        Lab1/lab1.f
+        "Fortran Functions/lab1.f"
         Linux_VirtualBox.pdf
         "Microsoft Word - lab0.pdf"
         plan.pdf

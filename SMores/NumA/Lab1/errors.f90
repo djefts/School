@@ -5,29 +5,30 @@ PROGRAM Errors
     ! and output the pairs x , F(x) on the screenand in file fort.7
     ! for plotting.
     ! (-0.1)*x**4-0.15*x**3-0.5*x**2-0.25*x+1.2
-    !____________________________________________________________________________________
+    !_________________________________________________________________________________
     IMPLICIT NONE
     ! Declare the variables used in this program
-    double precision x, dx, val, true, error
+    double precision x, h, val, true, error
     integer i
 
     x = 0.5
     true = (-0.9125)
     ! Compute F(x) = a - b*(x**3) and print x F(x):
-    dx = 0.1
-    DO i = 1, 20
-        val = (base(x + dx) - base(x - dx)) / (2 * dx)
-        error = Abs((val - true) / true)
+    h = 1.0
+    DO i = 1, 11
+        val = (base(x + h) - base(x - h)) / (2 * h)
+        error = Abs((val - true))
 
         write(*, *) ''
-        write(*, *) '        dx: ', dx
         write(*, *) '     error: ', error
-        write(*, *) '   log(dx): ', log10(dx)
+        write(*, *) ' step size: ', h
+        write(*, *) '   log(dx): ', log10(h)
         write(*, *) 'log(error): ', log10(error)
-        write(7, *) log10(dx), error
-        dx = dx/10
+        write(7, *) h, error
+        h = h / 10
     ENDDO
     ! Exit:
+    CALL SYSTEM('gnuplot -p script.sh')
     write(*, *) 'All  Done,  BYE !'
 
 CONTAINS
