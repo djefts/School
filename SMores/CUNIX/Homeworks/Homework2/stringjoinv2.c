@@ -47,13 +47,17 @@ int main(int argc, char *argv[]) {
     scanf("%2s", delimiter);
     //MAIN FUNCTION CALL
     joinedString = joinstring(strptrptr, delimiter);
-    display(strptrptr, delimiter, joinedString);  /* you need to replace "" with the variable joinedString
-	once you get the function joinstring to work */
+    
+    /*** I HAD TO MODIFY THIS METHOD FOR THE PROGRAM TO WORK ***/
+    display(strptrptr, delimiter, joinedString);
+    
+    /*** I HAD TO MODIFY THIS METHOD FOR THE PROGRAM TO WORK ***/
     freemem(strptrptr); /* give back all memory to the system. */
+    
     /* free the array of pointers. Note that this is done after freeing all the strings. */
     free(strptrptr);
-    strptrptr = 0; /*You must do this because strptrptr still has the address of the array which
-					is now unusable. */
+    
+    strptrptr = 0; /* You must do this because strptrptr still has the address of the array which is now unusable. */
     return 0;
 }/*end main*/
 
@@ -109,57 +113,53 @@ For any other string manipulations, write your own functions.
 ********************************************************/
 
 char *joinstring(char **stringPtrs, char *delimiter) {
-    char *joinedStr;
-    printf("\nJoin String function:\n");
+    char *joinedStr = 0;
     
     /* figure out how much mem we need to allocate */
-    int numStr = 0, numAlloc = 0;
-    //get num strings
-    while(*stringPtrs != "\0") {
+    int numStr = 0, totLen = 0;
+    /* get num strings */
+    int n = 0;
+    while(*(stringPtrs + n) != "\0") {
         numStr++;
-        numAlloc += strlen(*stringPtrs); //add length of current string
-        *stringPtrs++;
+        totLen += strlen(*(stringPtrs + n)); //add length of current string
+        n++;
     }
-    *stringPtrs = 0; //reset the pointer
-    //there will be (numStr-1) delimiters required
-    numAlloc += strlen(delimiter) * (numStr - 1);
-    printf("Number of strings: %d\n", numStr);
-    printf("Final string length: %d\n", numAlloc);
-    size_t num = numAlloc * sizeof(char *);
-    joinedStr = (char *) calloc(num);
+    /* there will be (numStr-1) delimiters required */
+    totLen += (strlen(delimiter) * (numStr - 1)) + 1;
+    /* allocate the memory to joinedStr */
+    joinedStr = (char *) malloc(totLen * sizeof(char *));
     
-    printf("Adding strings...");
-    int spot = 0, i = 0, j = 0, k = 0;
-    for(i; i < numStr - 1; i++) {
-        char *currStr = *stringPtrs;
-        //add every character from the current string to joinedStr
-        for(j; j < strlen(currStr); j++) {
+    
+    /* Build the string */
+    int spot = 0, i, j, k; //character spot of joinedStr, stringPtrs #, currStr spot, delimiter spot
+    for(i = 0; i < numStr; i++) {
+        char *currStr = stringPtrs[i]; //temporary string
+        //add every character from the currStr to joinedStr
+        for(j = 0; j < strlen(currStr); j++) {
             joinedStr[spot] = currStr[j];
             spot++;
         }
-        
-        //add every character from delimiter to joinedStr
-        for(k; k < strlen(delimiter); k++) {
-            joinedStr[spot] = delimiter[k];
-            spot++;
+        //add every character from the delimiter to joinedStr
+        if(spot < totLen - 1) {
+            for(k = 0; k < strlen(delimiter); k++) {
+                joinedStr[spot] = delimiter[k];
+                spot++;
+            }
         }
-        
-        //move onto the next string
-        *stringPtrs++;
     }
-    joinedStr[spot] = 0;
-    printf("End of Join String function\n\n");
+    joinedStr[spot] = '\0'; //add ending null character
+    
     return joinedStr;
 }
 
 void display(char **stringPtrs, char *delimiter, char *joinedStr) {
-    printf("Original strings\n");
+    printf("Original strings:\n");
     /* This was straightforward so I left it alone. */
-    while(*stringPtrs) {
+    /*** added the ` != "\0"` ***/
+    while(*stringPtrs != "\0") {
         printf("%s\n", *stringPtrs);
         stringPtrs++;
     }
-    
     printf("Delimiter: %s\n", delimiter);
     printf("Joined string: %s\n", joinedStr);
     
@@ -167,8 +167,9 @@ void display(char **stringPtrs, char *delimiter, char *joinedStr) {
 
 void freemem(char **mem) {
     int i = 0;
-    while(mem[i]) {
-        free(mem[i]);  /* free space for each string */
-        mem[i++] = 0; /* zero out the pointer and increment i*/
+    /*** added the ` != "\0"` ***/
+    while(mem[i] != "\0") {
+        free(mem[i]);   /* free space for each string */
+        mem[i++] = 0;   /* zero out the pointer and increment i*/
     }
 }
