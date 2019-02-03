@@ -1,6 +1,6 @@
 /*
-	Author:
-	Date:
+	Author: David Jefts
+	Date: 02/02/2019
 	Program: stringjoin.c
 	Description:
 		The program accepts a variable number of strings from the user.
