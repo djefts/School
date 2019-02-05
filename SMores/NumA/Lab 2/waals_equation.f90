@@ -1,8 +1,7 @@
 program waals_equation
     implicit none
-    double precision R, a, b, P, T, true
-    double precision P1, P2, P3, T1, T2, T3
-    integer n
+    double precision R, a, b, true
+    integer n, P, T
     double precision x_o, x_n, tol, err, r1, r2
     double precision step, func
 
@@ -10,8 +9,8 @@ program waals_equation
     R = 0.082054    !atm/(mol*K)
     a = 1.360
     b = 0.03183
-    P = 10.0        !atm
-    T = 300.0       !K
+    P = 10          !atm
+    T = 300         !K
 
     ! Do not know if this is that actual true value. This is just as exact as
     !!!! Fortran can get
@@ -40,8 +39,8 @@ program waals_equation
         write(7, *) step, func
     end do
 
-    temp : do n = 300, 500, 700
-        pressure : do n = 1, 10, 100
+!    temp : do T = 300, 500, 700
+!        pressure : do P = 1, 10, 100
             !estimate the roots, maximum of 500 iterations
             estimate : do n = 1, 500
                 !function:
@@ -81,8 +80,8 @@ program waals_equation
                     r1 = x_n
                 end if
             end do estimate
-        end do pressure
-    end do temp
+!        end do pressure
+!    end do temp
 
     CALL SYSTEM('gnuplot script.sh')
 
@@ -90,7 +89,8 @@ contains
 
     double precision FUNCTION waals(V, R, a, b, P, T)
         IMPLICIT NONE
-        doubleprecision :: R, a, b, V, P, T
+        doubleprecision :: R, a, b, V
+        integer ::  P, T
         waals = P * V**3 - (b * P + R * T) * V**2 + a * V - a * b
     END FUNCTION waals
 

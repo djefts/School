@@ -3,7 +3,7 @@
 set title "Graph of the function f(v)"
 
 set xzeroaxis linestyle 8 linewidth 2
-set xtics axis
+set xtics axis 0.1
 set xlabel "v"
 set ylabel "f(v)"
 plot "fort.7" title "f(v)" with linespoints
