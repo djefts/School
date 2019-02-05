@@ -36,7 +36,7 @@ program waals_equation
         step = 0.5 + (n * 0.01)
         func = waals(step, R, a, b, P, T)
         write(*, *) n, step, func
-        write(7, *) step, func
+        !write(7, *) step, func
     end do
 
 !    temp : do T = 300, 500, 700
@@ -49,11 +49,11 @@ program waals_equation
                 x_o = x_n
 
                 !!!bisection method
-                x_n = (r1 + r2) / 2
+                !x_n = (r1 + r2) / 2
 
                 !!!false position method
-                !x_n = (waals(r2, R, a, b, P, T) * r1) - (waals(r1, R, a, b, P, T) * r2)
-                !x_n = x_n / (waals(r2, R, a, b, P, T) - waals(r1, R, a, b, P, T))
+                x_n = (waals(r2, R, a, b, P, T) * r1) - (waals(r1, R, a, b, P, T) * r2)
+                x_n = x_n / (waals(r2, R, a, b, P, T) - waals(r1, R, a, b, P, T))
 
                 !calculate error and print
                 err = abs(x_o - x_n) !error
@@ -62,7 +62,7 @@ program waals_equation
                 !!!!!!! Print all the things !!!!!!!
                 !!plot error vs time
                 !write(7, *) n, err  !bisection
-                !write(8, *) n, err  !false pos
+                write(8, *) n, err  !false pos
 
                 !determine if error is small "enough"
                 if(err < tol .and. n > 1) then
