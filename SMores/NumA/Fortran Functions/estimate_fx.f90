@@ -42,7 +42,7 @@ program estimate_fx
             write(*, *) "What I found: ", x_n
             write(*, *) "Actual value: ", true
             write(*, *) count, " iterations"
-            stop
+            exit
         end if
 
         if(method) then
