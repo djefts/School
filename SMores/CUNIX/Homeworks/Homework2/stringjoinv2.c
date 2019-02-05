@@ -95,7 +95,7 @@ char **getStringsFromUser() {
         scanf("%c", &answer);
     }/*end main while loop*/
     /* make sure that there is a null in the position after the last string */
-    originalArrayPtr[i] = "\0";
+    originalArrayPtr[i] = NULL;
     return originalArrayPtr;
 }/*end getStringsFromUser*/
 
@@ -119,7 +119,7 @@ char *joinstring(char **stringPtrs, char *delimiter) {
     int numStr = 0, totLen = 0;
     /* get num strings */
     int n = 0;
-    while(*(stringPtrs + n) != "\0") {
+    while(*(stringPtrs + n)) {
         numStr++;
         totLen += strlen(*(stringPtrs + n)); //add length of current string
         n++;
@@ -127,7 +127,7 @@ char *joinstring(char **stringPtrs, char *delimiter) {
     /* there will be (numStr-1) delimiters required */
     totLen += (strlen(delimiter) * (numStr - 1)) + 1;
     /* allocate the memory to joinedStr */
-    joinedStr = (char *) malloc(totLen * sizeof(char *));
+    joinedStr = (char *) malloc(totLen * sizeof(char));
     
     
     /* Build the string */
@@ -155,8 +155,7 @@ char *joinstring(char **stringPtrs, char *delimiter) {
 void display(char **stringPtrs, char *delimiter, char *joinedStr) {
     printf("Original strings:\n");
     /* This was straightforward so I left it alone. */
-    /*** added the ` != "\0"` ***/
-    while(*stringPtrs != "\0") {
+    while(*stringPtrs) {
         printf("%s\n", *stringPtrs);
         stringPtrs++;
     }
@@ -167,8 +166,7 @@ void display(char **stringPtrs, char *delimiter, char *joinedStr) {
 
 void freemem(char **mem) {
     int i = 0;
-    /*** added the ` != "\0"` ***/
-    while(mem[i] != "\0") {
+    while(mem[i]) {
         free(mem[i]);   /* free space for each string */
         mem[i++] = 0;   /* zero out the pointer and increment i*/
     }
