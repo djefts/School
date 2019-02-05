@@ -1,7 +1,7 @@
 program estimate_fx
     implicit none
-    double precision a, b, x_o, x_n, err, tol, true
-    integer n, count
+    double precision a, b, x_o, x_n, err, err_o, tol, true
+    integer n
     logical method
 
     !INITIALIZE VARIABLES
@@ -10,7 +10,6 @@ program estimate_fx
     tol = 10.0**(-6)
     n = int(log((b - a) / tol) / log(2.0))
     true = 1.7320508
-    count = 0
     method = .false.
 
     if(f(a) * f(b) > 0) then
@@ -18,11 +17,9 @@ program estimate_fx
         stop
     end if
 
-    x_n = a
+    x_o = a
+    x_n = b
     do n = 1, 500
-        count = count + 1
-        x_o = x_n
-
         !!!bisection method
         !x_n = (a + b) / 2
         method = .true.
@@ -31,17 +28,25 @@ program estimate_fx
         !x_n = (f(b) * a - f(a) * b) / (f(b) - f(a))
         !method = .true.
 
-        !!!fixed point method
-        x_n = g(x_n)
+        !!!Fixed Point method
+        !!!DOES NOT WORK
+        !x_n = g(x_o)
 
-        err = abs(true - x_n)
-        write(*, *) count, err, x_n, true
-        write(7, *) count, err
+        !!!Newton's method
+        !x_n = x_o - (f(x_o)/deriv(x_o))
+
+        !!!Secant Method
+        write(*, *) f(x_o), f(x_n)
+        x_n = x_n - ((f(x_n) * (x_n - x_o)) / (f(x_n) - f(x_o)))
+
+        err = abs(true - x_n)   !true error
+        write(*, *) n, err, x_n
+        write(7, *) n, err
 
         if(err < tol) then
             write(*, *) "What I found: ", x_n
             write(*, *) "Actual value: ", true
-            write(*, *) count, " iterations"
+            write(*, *) n, " iterations"
             exit
         end if
 
@@ -53,7 +58,7 @@ program estimate_fx
                 a = x_n
             end if
         end if
-
+        x_o = x_n
     end do
 
 contains
@@ -67,17 +72,16 @@ contains
     double precision FUNCTION g(x)
         IMPLICIT NONE
         doubleprecision :: x
-
-        !f(x) = 0 --> g(x) = x
-        !f(x) = x**3 + x**2 - 3*x - 3 = 0
-        !add x to both sides
-        !g = x**3 + x**2 - 2 * x - 3    ! diverges
-        !!or possibly solve for x**1 term
-        !g = (x**3 + x**2 - 3) / 3       ! diverges
-        !!or possibly solve for x**2 term
-        !g = ((-x)**3 + 3 * x + 3)**(0.5)
-        !!or possibly solve for x**3 term
-        g = (x**2 - 3 * x - 3)**(1 / 3)
+        doubleprecision third
+        g = (0 - x**2 + 2.0 * x + 3)
+        third = 1.0 / 3
+        g = g**third
     END FUNCTION g
+
+    doubleprecision FUNCTION deriv(x)
+        IMPLICIT NONE
+        doubleprecision :: x
+        deriv = 2 * x**2 + 2 * x - 3
+    END FUNCTION deriv
 
 end program estimate_fx
