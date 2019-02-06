@@ -1,6 +1,7 @@
 program estimate_fx
     implicit none
-    double precision a, b, x_o, x_n, err, err_o, tol, true
+    double precision a, b, err, tol, true
+    doubleprecision x_n, x_o, x_oo, delta
     integer n
     logical method
 
@@ -17,30 +18,43 @@ program estimate_fx
         stop
     end if
 
-    x_o = a
-    x_n = b
+    delta = 0.01
+    x_oo = 3
+    x_o = 3
+    true = 3.5631608
+    tol = 0.0001
     do n = 1, 500
         !!!bisection method
         !x_n = (a + b) / 2
-        method = .true.
+        !x_o = x_n
+        !method = .true.
 
         !!!false position method
         !x_n = (f(b) * a - f(a) * b) / (f(b) - f(a))
+        !x_o = x_n
         !method = .true.
 
         !!!Fixed Point method
-        !!!DOES NOT WORK
-        !x_n = g(x_o)
+        x_n = g(x_o)
+        write(*, *) n, x_o, x_n
+        x_o = x_n
 
         !!!Newton's method
-        !x_n = x_o - (f(x_o)/deriv(x_o))
+        !x_n = x_o - (f(x_o) / deriv(x_o))
+        !x_o = x_n
 
         !!!Secant Method
-        write(*, *) f(x_o), f(x_n)
-        x_n = x_n - ((f(x_n) * (x_n - x_o)) / (f(x_n) - f(x_o)))
+        !x_n = x_o - ((f(x_o) * (x_o - x_oo)) / (f(x_o) - f(x_oo)))
+        !x_oo = x_o
+        !x_o = x_n
 
+        !!!Modified Secant Method
+        !x_n = x_o - ((f(x_o) * delta) / (f(x_o + delta) - f(x_o)))
+        !x_o = x_n
+
+        !err = abs(x_n - x_o)    !relative error
         err = abs(true - x_n)   !true error
-        write(*, *) n, err, x_n
+        !write(*, *) n, x_n, err
         write(7, *) n, err
 
         if(err < tol) then
@@ -50,6 +64,7 @@ program estimate_fx
             exit
         end if
 
+        !only used for bisection and false position methods
         if(method) then
             if(f(a) * f(x_n) < 0) then
                 b = x_n
@@ -58,30 +73,34 @@ program estimate_fx
                 a = x_n
             end if
         end if
-        x_o = x_n
     end do
+
+    !CALL SYSTEM('gnuplot -p script.sh')
 
 contains
 
     double precision FUNCTION f(x)
         IMPLICIT NONE
         doubleprecision :: x
-        f = x**3 + x**2 - 3 * x - 3
+        !f = x**3 + x**2 - 3 * x - 3
+        f = 2 * x**3 - 11.7 * x**2 + 17.7 * x - 5
     END FUNCTION f
 
     double precision FUNCTION g(x)
         IMPLICIT NONE
         doubleprecision :: x
         doubleprecision third
-        g = (0 - x**2 + 2.0 * x + 3)
-        third = 1.0 / 3
-        g = g**third
+        !g = (x**2 - 2.0 * x - 3) * (-1)
+        !third = 1.0 / 3
+        !g = g**third
+        g = (-2 * x**3 + 11.7 * x**2 + 5) / 17.7
     END FUNCTION g
 
     doubleprecision FUNCTION deriv(x)
         IMPLICIT NONE
         doubleprecision :: x
-        deriv = 2 * x**2 + 2 * x - 3
+        !deriv = 2 * x**2 + 2 * x - 3
+        deriv = 6 * x**2 - 23.4 * x + 17.7
     END FUNCTION deriv
 
 end program estimate_fx
