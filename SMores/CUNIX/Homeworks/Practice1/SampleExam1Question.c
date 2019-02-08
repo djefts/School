@@ -7,18 +7,7 @@
 #include <string.h>
 
 int main(int argc, char *argv[]) {
-    char p[] = {12, -5, 0, 7};
-    char *q;
-    int i;
-    q = p;
-    q += 2;
-    (*q)++;
-    q = &p[1];
-    *q += 10;
-    p[0] %= p[3];
-    printf("%i\n", (int) sizeof(p));
-    for(int i = 0; i < sizeof(p); i++) {
-        printf("%d ", p[i]);
-    }
-    printf("\n");
+    char str[10];
+    char **ptr;
+    *ptr = (char *)malloc(sizeof(char)*5);
 }
