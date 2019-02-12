@@ -31,8 +31,8 @@ program estimate_fx
         !x_o = x_n
 
         !!!Newton's Method
-        !x_n = x_o - (f(x_o) / deriv(x_o))
-        !x_o = x_n
+        x_n = x_o - (f(x_o) / deriv(x_o))
+        x_o = x_n
 
         !!!Secant Method
         !x_n = x_o - ((f(x_o) * (x_o - x_oo)) / (f(x_o) - f(x_oo)))
@@ -44,8 +44,8 @@ program estimate_fx
         !x_o = x_n
 
         !!!Modified Newton's Method for Roots of Multiplicity
-        x_n = x_o - ((f(x_o) * deriv(x_o)) / ((deriv(x_o))**2 - f(x_o) * dderiv(x_o)))
-        x_o = x_n
+        !x_n = x_o - ((f(x_o) * deriv(x_o)) / ((deriv(x_o))**2 - f(x_o) * dderiv(x_o)))
+        !x_o = x_n
 
         !err = abs(x_n - x_o)    !relative error
         err = abs(true - x_n)   !true error
@@ -73,7 +73,7 @@ program estimate_fx
         end if
     end do
 
-    !CALL SYSTEM('gnuplot -p script.sh')
+    CALL SYSTEM('gnuplot -p script.sh')
 
 contains
 
