@@ -2,25 +2,32 @@ program solve_matrix
     IMPLICIT NONE
     integer i, j, k, n
     doubleprecision m, sum
-    doubleprecision a(5, 5), x(5)
+    doubleprecision a(4, 4), x(4)
 
-    n = 4
-    a(1, :) = [  1, 1, 0, 3, 4 ]
-    a(2, :) = [  2, 1, -1, 1, 1 ]
-    a(3, :) = [  3, -1, -1, 2, -3 ]
-    a(4, :) = [ -1, 2, 3, -1, 4 ]
-    a(5, :) = [  0, 0, 0, 0, 0 ]
+    !    n = 4
+    !    a(1, :) = [  1, 1, 0, 3, 4 ]
+    !    a(2, :) = [  2, 1, -1, 1, 1 ]
+    !    a(3, :) = [  3, -1, -1, 2, -3 ]
+    !    a(4, :) = [ -1, 2, 3, -1, 4 ]
+    !    a(5, :) = [  0, 0, 0, 0, 0 ]
 
     !(/ 1,  1,  0,  3,  4, 0, &
     !  2,  1, -1,  1,  1, 0, &
     ! 3, -1, -1,  2, -3, 0, &
     !-1,  2,  3, -1,  4, 0/)
 
+    !Lab 4 Matrix:
+    n = 4
+    a(1, :) = [  1, -1, 3, -3 ]
+    a(2, :) = [ -1, 0, -2, 1 ]
+    a(3, :) = [  2, 2, 4, 0 ]
+    a(4, :) = [  0, 0, 0, 0 ]
+
     write(*, *) print_matrix(a, n)
     write(*, *) ""
     !partial_pivot(r, c, a, n)
-    call partial_pivot(1, 1, 1, a, n)
-    write(*, *) print_matrix(a, n)
+    !call partial_pivot(1, 1, 1, a, n)
+    !write(*, *) print_matrix(a, n)
     stop
 
     !Forward Elimination
@@ -79,15 +86,25 @@ CONTAINS
         INTEGER :: n
         DOUBLEPRECISION, DIMENSION(n, n) :: a(n, n)
         integer i, j
-        character*100 output
-        output = ""
-        DO i = 1, n
-            output = output // "["
-            DO j = 1, n
-                output = output // a(i, j) // ", "
-            END DO
-            output = output // "]"
-        END DO
-        print_matrix = 0
+        character*100 output, num
+
+        write(*, *) "Printing the matrix..."
+
+        !        output = ""
+        !        DO i = 1, n
+        !
+        !            output = output // "["
+        !            DO j = 1, n
+        !                write(num, "(A5,I2)") a(i, j)
+        !                output = output // num // ", "
+        !            END DO
+        !            output = output // "]"
+        !        END DO
+        !        write(*, *) output
+        !        print_matrix = 0
+
+        do i = 1, n
+            write(*, "(100g15.5)") (a(i, j), j = 1, n)
+        enddo
     END FUNCTION print_matrix
 END PROGRAM solve_matrix
