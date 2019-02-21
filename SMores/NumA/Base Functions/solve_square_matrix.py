@@ -7,9 +7,13 @@ class Matrix:
     def forwardElimination(self):
         for k in range(self.n - 1):  # loop through steps
             for i in range(k + 1, len(self.matrix)):  # loop through rows in bottom left corner
+                if self.matrix[k][k] == 0.0:
+                    print("pivoting")
+                    self.partialPivoting(k, k)
                 m = self.matrix[i][k] / self.matrix[k][k]
                 for j in range(len(self.matrix) + 1):  # loop through columns
                     self.matrix[i][j] = self.matrix[i][j] - m * self.matrix[k][j]
+            print(self)
     
     def backwardSubstitution(self):
         sol = [0] * self.n
@@ -21,18 +25,17 @@ class Matrix:
         self.sol = sol
     
     def partialPivoting(self, r, c):
-        row = -1
+        row = 0
         largest = 0
         # find the row with the largest value for the input column
         for i in range(self.n):
-            if self.matrix[i][c] > largest:
+            if abs(self.matrix[i][c]) > largest:
                 largest = self.matrix[i][c]
                 row = i
         # swap the row found above with the input row
-        if row > -1:
-            temp = self.matrix[r]
-            self.matrix[r] = self.matrix[row]
-            self.matrix[row] = temp
+        temp = self.matrix[r]
+        self.matrix[r] = self.matrix[row]
+        self.matrix[row] = temp
     
     def scaleMatrix(self):
         for i in range(len(self.matrix) - 1):
@@ -65,9 +68,13 @@ n = 4
 #               [2, 1, -1, 1, 1],
 #               [3, -1, -1, 2, -3],
 #               [-1, 2, 3, -1, 4]])
-mat = Matrix([[1, -1, 3, -3],
-              [-1, 0, -2, 1],
-              [2, 2, 4, 0]])
+# mat = Matrix([[1, -1, 3, -3],
+#               [-1, 0, -2, 1],
+#               [2, 2, 4, 0]])
+mat = Matrix([[1, -5, 1, 7],
+              [10, 0, 20, 6],
+              [5, 0, -1, 4]])
+
 print(mat, '\nScaled Matrix:\n')
 mat.scaleMatrix()
 print(mat, '\nForward Elimination:\n')
