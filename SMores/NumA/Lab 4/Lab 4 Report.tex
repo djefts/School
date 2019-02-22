@@ -14,6 +14,12 @@
 \usepackage{amsmath}
 \usepackage{systeme}
 \usepackage{blkarray, bigstrut}
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+\usepackage[utf8]{inputenc}
+\usepackage{relsize}
+\usepackage[nameinlink, capitalize, noabbrev]{cleveref}
+\usepackage{tabu}
 
 \begin{document}
 
@@ -33,6 +39,7 @@
 	\centering
 	\hfill
 	\vfill
+	\thispagestyle{empty}
 \end{titlepage}
 
 \setlength{\voffset}{-0.5in}
@@ -46,85 +53,149 @@
 	\[
 		\syslineskipcoeff{1}
 		\systeme{x-y+3z=-3, -x-2z=1, 2x+2y+4z=0}
-	\]
+	\]\vspace{\baselineskip}
 	
-	This was translated into the matrix below to be used by the Gaussian Elimination software.
+	This was translated into the matrix below to be used by the Gaussian Elimination software. The dark grey line separates the left-hand-side of the equations with the right-hand-side. Much of the Gaussian Elimination Method is based upon what is called the `main diagonal', encircled in red in the matrix below.
 	
 	\begin{center}
 		\begin{blockarray}{cccc}
-			\begin{block}{ [ ccc| c ]}
+			\begin{block}{ [ ccc !{\color{darkgray}\vrule} c ]}
 				\bigstrut[t]
-				 1 & -1 &  3 & -3 \\
+				 \tikzmarknode[inner sep=1pt]{A11}{1} & -1 &  3 & -3 \\
 				-1 &  0 & -2 &  1 \\
-				 2 &  2 &  4 &  0 \bigstrut[b] \\
+				 2 &  2 &  \tikzmarknode[inner sep=1pt]{A33}{4} &  0 \bigstrut[b] \\
 			\end{block}
 		\end{blockarray}
+		\begin{tikzpicture}[remember picture,overlay]
+			\draw[red, thick] plot[smooth cycle] coordinates {(A11.north)
+			(A33.north east) (A33.south) (A11.south west)};
+		\end{tikzpicture}
 	\end{center}
 
 %Theory-Analysis: 5pts
 %State assumptions and develop equations
 \section{Theory-Analysis}
-	 Gaussian Elimination has two major steps, with two optional steps that are discussed at the end of this section. Forward Elimination, which solves the bottom half of the matrix, followed by Backwards Substitution, which solves for the variable values.
-	 
-	 By the end of the Forward Elimination step, the bottom left-hand corner of the matrix (below the diagonal) should be all equivalent to 0, as highlighted below.
-	 
-	 % insert matrix with circles and stuff
+	 There were no special equations used in this lab, nor were there any assumptions made. The methods used were Gaussian Elimination, explained in Section Numerical Solution, and the Matrix Row Operations, row switching, row multiplication, and row addition. Row switching is swapping the position of one row with another row. Row multiplication is multiplying a row by a constant. Row addition is replacing a row by the sum of that row and some multiple of another row.
+
 	 
 %Numerical Solution: 20pts
 %Describe the numerical methods used to solve the problem
 \section{Numerical Solution}
-	This lab was solved using Fortran code to estimate the roots of the function and gnuplot to plot and tabulate the values. Multiple different methods were used, which as a group are colloquially called "open methods." This name comes from the fact that all of the methods work on an "open" set of numbers as opposed to the "bracketing" methods that work only on a set of numbers within a limited range.
+	The entirety of the Gaussian Elimination was coded in Python, with the matrices displayed created in \LaTeX{}.
 	
-	Newton's Method (also known as the Newton-Raphson method is an approximation algorithm that uses the tangent line of a function to estimate the root. Starting with a given value, it iteratively uses the function $x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)}$ until a desired accuracy is reached. This method converges quadratically, making it a very desirable method for quickly calculating the root of a function and it is relatively easy to extend this method to high-order equations and functions. The drawbacks to this method are that the derivative of $f(x)$ has to be recalculated each iteration and the method will completely fail if $f'(x)=0$ at any point during the iteration process.
+	Gaussian Elimination has two major steps, with two optional steps that are discussed at the end of this section. Forward Elimination, which solves the bottom half of the matrix, followed by Backwards Substitution, which solves for the variable values.
+	 
+	 By the end of the Forward Elimination step, the bottom left-hand corner of the matrix, as highlighted below, should be all equivalent to 0. \vspace{\baselineskip}
+	 
+	 \begin{center}
+	 	\begin{blockarray}{ccc|c}
+			\begin{block}{ [ ccc !{\color{darkgray}\vrule} c ]}
+				\bigstrut[t]
+				1 & -1 & 3 & -3 \\
+				\tikzmarknode{B21}{0} &  -1 & 1 &  -2 \\
+				\tikzmarknode{B31}{0} &  \tikzmarknode{B32}{0} &  2 &  -2 \bigstrut[b] \\
+			\end{block}
+		\end{blockarray}
+		
+		Expected matrix post-Forward Elimination Step
+	\end{center}
+	\begin{tikzpicture}[remember picture,overlay]
+		\draw[red, thick] plot[smooth cycle] coordinates {(B21.north west) (B21.north east)
+		(B32.north east) (B32.south east) (B31.south west)};
+	\end{tikzpicture}
 	
-	The Secant Method is an approximation algorithm that uses the secant line of a function to estimate the root. Starting with a given value, it iteratively uses the function $x_{n+1}=x_n-\frac{f(x)\times(x_n-x_{n-1})}{f(x_n)-f(x_{n-1})}$ until a desired accuracy is reached. The Secant Method converges slightly slower than Newton's Method, on the order of ${\approx}1.618$, the Golden Ratio. This method can be implemented easier than the Newton Method since the derivative of $f(x)$ does not need to be calculated, however this method requires two initial points to start and it is not always guaranteed to converge.
+	This is accomplished through a multi-step algorithm. Below is a walkthrough of the method using the matrix mentioned in the introduction. Matrices can be modified by adding and subtracting rows of the matrix from other rows.\vspace{\baselineskip}
 	
-	The Modified Secant Method is another approximation algorithm that uses the secant line of a function to estimate the root. This method is a modification of The Secant Method detailed above, taking advantage of Newton's difference quotient function to estimate the derivative. It iteratively uses the function $x_{n+1}=x_n-\frac{f(x_n)\times\delta)}{f(x_n+\delta)-f(x_n)}$ until a desired accuracy is reached. The Modified Secant Method converges at the same rate as The Secant Method, while removing the need to define and track two initial points. However it requires a definition of delta ($\delta$) with constraints- if defined too large it may skip over the root, too small and it may never converge in a reasonable amount of time. For this purposes of this lab $\delta=0.01$.
-	
-	The Modified Newton's Method for Roots of Multiplicity is an approximation algorithm that uses the tangent line of a function and its second derivative to estimate the root. This method iteratively uses the function $x_{n+1}=x_n-\frac{f(x_n)\times f'(x_n)}{(f'(x_n))^2-f(x)\times f''(x_n)}$ until a desired accuracy is reached. Like Newton's Method, this method converges quadratically. Additionally, this method works even if there is a Root of Multiplicity (i.e. the function has two roots of the same value such as $f(x)=x^2-9$. However calculating the second derivative of a function is not always easy.
-	
-	For the comparison test using $P=10$atm and $T=100$K and starting numbers of $x_{n+1}=3, x_n=4,$ and $x_{n-1}=5$:
+	Step 1: The first step begins with the first column and the second row. The goal is to make each spot in the bottom left corner equivalent to 0. For the first step the first row of the matrix is subtracted from each of the other rows a number of times until each spot in that column, below the main diagonal, is equivalent to 0. For the second row, adding the first row just once is sufficient to make a zero ($R_2 + R_1 \rightarrow R_2$, where $R_1$ and $R_2$ refer to rows 1 and 2, respectively), in this case the multiplier for the row is $-1$. To add two rows together, sum the values in each of the matching columns independently. The result is the left matrix. Continuing this process on the third row, achieving a 0 in the first column can be done with: $R_2 - (2\times R_1) \rightarrow R_2$ and the result is the right matrix, in this case the multiplier would be 2.
 	
 	\begin{center}
-		Newton's Method converged in 4 iterations
-		
-		The Secant Method converged in 6 iterations
-		
-		The Modified Secant Method converged in 5 iterations
-		
-		The Modified Newton's Method for Roots of Multiplicity converged in 6 iterations
+		\begin{blockarray}{cccc}
+			\begin{block}{ [ ccc !{\color{darkgray}\vrule} c ]}
+				\bigstrut[t]
+				 1 & -1 &  3 & -3 \\
+				 0 &  -1 & 1 &  -2 \\
+				 2 &  2 &  4 &  0 \bigstrut[b] \\
+			\end{block}
+		\end{blockarray}
+		\hspace{1cm}
+		\begin{blockarray}{cccc}
+			\begin{block}{ [ ccc !{\color{darkgray}\vrule} c ]}
+				\bigstrut[t]
+				 1 & -1 &  3 & -3 \\
+				 0 &  -1 & 1 &  -2 \\
+				 0 &  4 &  -2 &  6 \bigstrut[b] \\
+			\end{block}
+		\end{blockarray}
 	\end{center}
+	
+	Step 2: The second step is the same process as the first step, but using the second row to make the second column, below the main diagonal, equivalent to 0. For the third row, achieving a 0 in the second column can be done with: $R_2 + (4\times R_1) \rightarrow R_2$ and the result is the matrix below.
+	
+	\begin{center}
+		\begin{blockarray}{cccc}
+			\begin{block}{ [ ccc !{\color{darkgray}\vrule} c ]}
+				\bigstrut[t]
+				 1 & -1 &  3 & -3 \\
+				 0 &  -1 & 1 &  -2 \\
+				 0 &  0 &  2 &  -2 \bigstrut[b] \\
+			\end{block}
+		\end{blockarray}
+	\end{center}
+	
+	The next major step of the Gaussian Elimination Method is Backwards Substitution. Backwards substitution finds the final solution, by converting the matrix back into a system of equations and solving `up' the matrix to find all of the x values.
+	
+	\begin{center}
+		\begin{blockarray}{cccc}
+			\begin{block}{ [ ccc !{\color{darkgray}\vrule} c ]}
+				\bigstrut[t]
+				 1 & -1 &  3 & -3 \\
+				 0 &  -1 & 1 &  -2 \\
+				 0 &  0 &  2 &  -2 \bigstrut[b] \\
+			\end{block}
+		\end{blockarray}
+		\scalebox{1.75}{$\rightarrow$}
+		\systeme{x-y+3z=-3, -y+z=-2, 2z=-2}
+	\end{center}
+	
+	$z$ can now easily be solved for, resulting in $-1$. Substitute $z$ into the second equation to find $y$, then substitute $y$ and $z$ into the first equation to calculate $x$. Then the matrix is solved.
+	\vspace{\baselineskip}
+	
+	Two minor methods that are not always necessary for the Gaussian Elimination Method are Scaling and Partial Pivoting. Scaling is dividing each element by the highest value in a given row. This scales down the matrix so that no number is greater than 1. This can reduce the complexity of the matrix and help it be more readable, but it also increases the chance of round-off errors in computers since some fractions cannot be well-represented digitally. 
+	
+	Partial Pivoting is required if, at any point in the Forward Elimination Step, a number in the main diagonal is equivalent to 0. This causes errors when finding the multiplier since numbers cannot be divided by 0. Partial Pivoting is the swapping of two rows so that the number on the main diagonal is not 0. The current row is swapped with the row that has the highest absolute value for the column currently being worked on. So if the current row has a 0 in the 3rd column and this 0 is on the main diagonal, then the Partial Pivot would swap the current row with whichever row has the greatest absolute value in the 3rd column.
+
 
 %Results and Discussion: 45pts
 %Tabulate and plot the results, compare results, and discuss the accuracy of results
 \section{Results and Discussion}
-    	Firgure~\ref{fig:error} in Appendix A is a graph of the error during each iteration of each algorithm, where each line represents one of the above-mentioned estimation methods, the x-axis is the number of iterations and the y-axis is the error. In this graph scenario $P=10atm$ and $T=300K$. This graph seems to indicate that Newton's Method both starts with a smaller error and converges towards the desired value faster. The other methods all converged upon the same value, but were slower, less efficient, and/or unnecessarily complicated (as in the case of the Modified Newton's Method for Roots of Multiplicity since this function does not have any roots with multiplicity). When compared with the Ideal Gas Law however, they all reached a Modal Volume about $0.2\frac{m^3}{mol}$. The cause of this discrepancy is most likely due to the corrections the van der Waal's equation makes to the Ideal Gas Law formula by observing and allowing for the fact that gas molecules attract each other (noted by the variable $a$ in his equation) and the volume of each individual mole of gas (noted by the variable $b$ in his equation).
+    	The solved System of Equations used as an example in this lab to demonstrate the Gaussian Elimination Method is shown below.
 	
+	\begin{center}
+	\systeme{x-y+3z=-3, -x-2z=1, 2x+2y+4z=0}
+	\hspace{.25cm}\scalebox{1.75}{$\rightarrow$}
+		\begin{tabu} to 0.01\textwidth{X[$] X[$] X[$]}
+			x & = & 1 \\
+			y & = & 1 \\
+			z & = & -1 \\
+		\end{tabu}
+	\end{center}
+
+
 %Conclusions: 20pts
 %Comment on the efficiency of the solvers
 \section{Conclusions}
-	Newton's Method appears to be the most efficient method without sacrificing any error or simplicity, in the future that may not always be the case though, depending on the function, how it curves, and what its roots are. If this were to be done by hand the most accurate and efficient way would be Newton's Method, however the other methods do not converge at a significantly slower rate when using a tolerance of $10^{-6}$. There are many other ways to optimize the estimation this function however, the methods of finding roots detailed in this report are just a handful from a plethora of various solvers and algorithms that accomplish the same task. 
+	The Gaussian Elimination Method is very effective at solving matrices, however it has a high operation cost, at $O(n)=O(\frac{2}{3}n^3) + O(n^2)$. Additionally, the method may require the entire matrix to be scaled beforehand which can increase the chance of rounding error when solving with a computer, and certain matrices require pivoting which slightly increases the overall complexity. In conclusion, the Gaussian Elimination Method is very effective at solving matrices and guarantees a solution, but it sacrifices operational power to do so. 
 
 \pagebreak
-	
+
+
 %Appendices
 %Include listings of the source codes, include printed copies of the output files
 \appendix
 	\section{Appendix A}
-%            		\begin{figure}[htp]
-%            			\centering
-%            			\includegraphics[width=1.0\linewidth]{ErrorGraphs.png}
-%            			\caption{Graph of the error over time for each algorithm}
-%            			\label{fig:error}
-%            		\end{figure}
-	\pagebreak
-
-	\section{Appendix B}
-		
-
-	\clearpage
-	
-	\section{Appendix C}
+            		\begin{figure}[htp]
+            			\centering
+            			\includegraphics[width=1.0\linewidth]{PythonCode.png}
+            		\end{figure}
 
 
 \end{document}
