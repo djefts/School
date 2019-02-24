@@ -6,5 +6,4 @@ set(CMAKE_C_STANDARD 11)
 include_directories(Homeworks)
 include_directories(Practice1)
 
-add_executable(Homeworks
-        Practice1/calc.c Practice1/SampleExam1Question.c Practice1/warmpup2-14.c "Homeworks/Homework 3/switchEndian.c")
+add_executable(simpleStat Homeworks/Homework4/simpleStat.c)
