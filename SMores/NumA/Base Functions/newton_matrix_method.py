@@ -5,22 +5,28 @@ class Matrix:
         self.x = []
         self.y = []
     
-    def forward_elimination(self):
+    def forward_elim(self):
         for k in range(self.n - 1):  # loop through steps
             for i in range(k + 1, len(self.matrix)):  # loop through rows in bottom left corner
-                m = self.matrix[i][k] / self.matrix[k][k]
-                self.matrix[i][k] = m
+                m = self.matrix[i][k] / self.matrix[k][k]  # get the row multiplier
+                self.matrix[i][k] = m  # set up L
                 for j in range(k + 1, len(self.matrix) + 1):  # loop through columns
                     self.matrix[i][j] = self.matrix[i][j] - m * self.matrix[k][j]
             print(self)
     
-    def solveY(self):
-        pass
+    def forward_sub(self, b):
+        c = [0] * self.n
+        for row in range(self.n):
+            if row == b:  # value in right-most column
+                sum = 1
+            else:
+                sum = 0
+            for col in range(row):  # loop through columns
+                sum -= self.matrix[row][col]  # subtract each known value
+            c[row] = sum / self.matrix[row][row]  # divide by the diag value
+        return c
     
-    def solveX(self):
-        pass
-    
-    def backward_substitution(self):
+    def back_sub(self):
         sol = [0] * self.n
         for row in range(self.n - 1, -1, -1):  # loop through rows backwards
             sum = self.matrix[row][self.n]  # value in right-most column
@@ -51,14 +57,19 @@ class Matrix:
             for j in range(len(self.matrix[i])):
                 self.matrix[i][j] = self.matrix[i][j] / largest
     
-    def get_spot(self, i, j):
-        return self.matrix[i][j]
+    # noinspection PyPep8Naming
+    def LU_decomp(self):
+        inv = [[0] * (self.n + 1)] * self.n
+        for i in range(self.n):
+            self.forward_elim()
+        self.back_sub()
     
     def solve_matrix(self):
-        self.forward_elimination()
-        self.solveY()
-        self.solveX()
-        return '[' + ', '.join(['{}'.format(str(item)) for item in self.x]) + ']\n'
+        print("Original Matrix:\n", mat, "Forward Elimination:\n", sep = '\n')
+        self.forward_elim()
+        print('Backwards Substitution:\n')
+        self.back_sub()
+        print('[' + ', '.join(['{}'.format(str(item)) for item in self.x]) + ']\n')
     
     def __str__(self):
         mx = max((len(str(i)) for row in self.matrix for i in row))
@@ -72,19 +83,16 @@ n = 4
 # -x - 2 * z = 1
 # 2 * x + 2 * y + 4 * z = 0
 
-mat = Matrix([[1, 1, 0, 3, 8],
-              [2, 1, -1, 1, 7],
-              [3, -1, -1, 2, 14],
-              [-1, 2, 3, -1, -7]])
+# mat = Matrix([[1, 1, 0, 3, 8],
+#               [2, 1, -1, 1, 7],
+#               [3, -1, -1, 2, 14],
+#               [-1, 2, 3, -1, -7]])
 # mat = Matrix([[1, -1, 3, -3],
 #               [-1, 0, -2, 1],
 #               [2, 2, 4, 0]])
-# mat = Matrix([[1, -5, 1, 7],
-#               [10, 0, 20, 6],
-#               [5, 0, -1, 4]])
+mat = Matrix([[2, 0, 0, 0, 3],
+              [1, 1.5, 0, 0, 4.5],
+              [0, -3, 0.5, 0, -6.6],
+              [2, -2, 1, 1, 0.8]])
 
-print(mat, '\nForward Elimination:\n')
-mat.forward_elimination()  # WORKS!!
-print(mat, '\nBackward Substitution:\n')
-mat.backward_substitution()
-print(mat.solve_matrix())
+mat.solve_matrix()
