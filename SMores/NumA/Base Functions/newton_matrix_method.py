@@ -3,7 +3,6 @@ class Matrix:
         self.matrix = matrix
         self.n = len(self.matrix)
         self.x = []
-        self.y = []
     
     def forward_elim(self):
         for k in range(self.n - 1):  # loop through steps
@@ -15,16 +14,27 @@ class Matrix:
             print(self)
     
     def forward_sub(self, b):
-        c = [0] * self.n
-        for row in range(self.n):
-            if row == b:  # value in right-most column
-                sum = 1
-            else:
-                sum = 0
-            for col in range(row):  # loop through columns
-                sum -= self.matrix[row][col]  # subtract each known value
-            c[row] = sum / self.matrix[row][row]  # divide by the diag value
-        return c
+        sol = [0] * self.n
+        matrix = self.clone(self.matrix)
+        
+        # setup the L matrix
+        for row in range(len(matrix)):
+            for col in range(len(matrix[row])):
+                if row == col:
+                    matrix[row][col] = 1
+                if col > row:
+                    matrix[row][col] = 0
+        for i in range(len(b)):
+            matrix[i][self.n] = b[i]
+        
+        print('[' + ']\n['.join([', '.join(['{:3.0f}'.format(i) for i in r]) for r in matrix]) + ']\n')
+        
+        for row in range(self.n):  # loop through rows
+            sum = b[row]  # b vector value
+            for col in range(row):  # loop through to diagonal
+                sum -= matrix[row][col] * sol[col]  # subtract each known value
+            sol[row] = sum
+        return sol
     
     def back_sub(self):
         sol = [0] * self.n
@@ -57,19 +67,46 @@ class Matrix:
             for j in range(len(self.matrix[i])):
                 self.matrix[i][j] = self.matrix[i][j] / largest
     
-    # noinspection PyPep8Naming
-    def LU_decomp(self):
-        inv = [[0] * (self.n + 1)] * self.n
-        for i in range(self.n):
-            self.forward_elim()
-        self.back_sub()
-    
-    def solve_matrix(self):
+    def gaussian_elimination(self):
         print("Original Matrix:\n", mat, "Forward Elimination:\n", sep = '\n')
         self.forward_elim()
         print('Backwards Substitution:\n')
         self.back_sub()
         print('[' + ', '.join(['{}'.format(str(item)) for item in self.x]) + ']\n')
+    
+    # noinspection PyPep8Naming
+    def LU_decomp(self):
+        b = []
+        # setup b
+        for i in range(len(self.matrix)):
+            b.append(self.matrix[i][self.n])
+        print("b:", b, end = '\n\n')
+        
+        # get LU matrix
+        self.forward_elim()
+        
+        # get y values
+        y = self.forward_sub(b)
+        print("y:", y, end = '\n\n')
+        for i in range(len(b)):
+            self.matrix[i][self.n] = y[i]
+        print(self)
+        
+        # get solution
+        self.back_sub()
+        print("SOLUTION:", self.x)
+    
+    def jacobi(self):
+        pass
+    
+    def clone(self, inp):
+        result = []
+        for r in range(len(inp)):
+            row = []
+            for c in inp[r]:
+                row.append(c)
+            result.append(row)
+        return result
     
     def __str__(self):
         mx = max((len(str(i)) for row in self.matrix for i in row))
@@ -78,21 +115,20 @@ class Matrix:
         return output + ']\n'
 
 
-n = 4
 # x - y + 3 * z = -3
 # -x - 2 * z = 1
 # 2 * x + 2 * y + 4 * z = 0
 
-# mat = Matrix([[1, 1, 0, 3, 8],
-#               [2, 1, -1, 1, 7],
-#               [3, -1, -1, 2, 14],
-#               [-1, 2, 3, -1, -7]])
 # mat = Matrix([[1, -1, 3, -3],
 #               [-1, 0, -2, 1],
 #               [2, 2, 4, 0]])
-mat = Matrix([[2, 0, 0, 0, 3],
-              [1, 1.5, 0, 0, 4.5],
-              [0, -3, 0.5, 0, -6.6],
-              [2, -2, 1, 1, 0.8]])
+mat = Matrix([[1, 1, 0, 3, 8],
+              [2, 1, -1, 1, 7],
+              [3, -1, -1, 2, 14],
+              [-1, 2, 3, -1, -7]])
+# mat = Matrix([[2, 0, 0, 0, 3],
+#               [1, 1.5, 0, 0, 4.5],
+#               [0, -3, 0.5, 0, -6.6],
+#               [2, -2, 1, 1, 0.8]])
 
-mat.solve_matrix()
+mat.LU_decomp()
