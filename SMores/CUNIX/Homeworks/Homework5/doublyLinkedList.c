@@ -130,18 +130,19 @@ void display(void *data) {
 
 void *removeFromFront(LINKED_LIST *listPtr) {
     /*
-     * This removes, and returns, the data from the node at the front of the list or NULL if there is nothing to remove.
+     * This removes, and returns, the data from the data at the front of the list or NULL if there is nothing to remove.
      * Remember to free the NODE.
      */
     if(listPtr == NULL) return NULL;
     
-    LIST_NODE *node = listPtr->front->dataPtr;
+    LIST_NODE *node = listPtr->front;
+    void *data = node->dataPtr;
     listPtr->front = listPtr->front->next;
     
-    //TODO: Free node
+    //TODO: Free data
     free(node);
     
-    return node;
+    return data;
 }
 
 void *removeFromBack(LINKED_LIST *listPtr) {
@@ -151,10 +152,12 @@ void *removeFromBack(LINKED_LIST *listPtr) {
      */
     if(listPtr == NULL) return NULL;
     
-    LIST_NODE *node = listPtr->back->dataPtr;
+    LIST_NODE *node = listPtr->back;
+    void *data = node->dataPtr;
     listPtr->back = listPtr->back->prev;
     
     //TODO: Free node
+    free(node);
     
-    return node;
+    return data;
 }
