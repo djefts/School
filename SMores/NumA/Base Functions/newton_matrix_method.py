@@ -97,7 +97,39 @@ class Matrix:
         print("SOLUTION:", self.x)
     
     def jacobi(self):
-        pass
+        err = 1
+        tol = 0.0001
+        
+        # initial x guess
+        x = [0] * self.n
+        for row in range(self.n):
+            D = 1 / self.matrix[row][row]
+            L = 0
+            for col in range(row):
+                L += D * self.matrix[row][col] * self.matrix[col][self.n]
+                print(self.matrix[row][col], self.matrix[col][self.n], sep = '\t')
+            print("\n")
+            x[row] = D * self.matrix[row][self.n] - L
+        print("Initial Guess:", x)
+        
+        # consecutive x guesses
+        while err > tol:
+            for row in range(self.n):
+                x_old = x.copy()
+                
+                D = 1 / self.matrix[row][row]
+                x[row] = D * self.matrix[row][self.n]
+                U = 0
+                for col in range(row + 1, self.n):
+                    U += 7
+                x[row] -= D * U
+                
+                # calculate error
+                s = 0
+                for a in range(len(x_old)):
+                    s += (x[a] - x_old[a])**2
+                err = s**0.5
+            # print(x)
     
     def clone(self, inp):
         result = []
@@ -122,13 +154,17 @@ class Matrix:
 # mat = Matrix([[1, -1, 3, -3],
 #               [-1, 0, -2, 1],
 #               [2, 2, 4, 0]])
-mat = Matrix([[1, 1, 0, 3, 8],
-              [2, 1, -1, 1, 7],
-              [3, -1, -1, 2, 14],
-              [-1, 2, 3, -1, -7]])
+# mat = Matrix([[1, 1, 0, 3, 8],
+#               [2, 1, -1, 1, 7],
+#               [3, -1, -1, 2, 14],
+#               [-1, 2, 3, -1, -7]])
 # mat = Matrix([[2, 0, 0, 0, 3],
 #               [1, 1.5, 0, 0, 4.5],
 #               [0, -3, 0.5, 0, -6.6],
 #               [2, -2, 1, 1, 0.8]])
+mat = Matrix([[10, -1, 2, 0, 6],
+              [-1, 11, -1, 3, 25],
+              [2, -1, 10, -1, -11],
+              [0, 3, -1, 8, 15]])
 
-mat.LU_decomp()
+mat.jacobi()
