@@ -7,3 +7,4 @@ include_directories(Homeworks)
 include_directories(Practice1)
 
 add_executable(simpleStat Homeworks/Homework4/simpleStat.c)
+add_executable(doublyLinkedList Homeworks/Homework5/doublyLinkedList.c)
