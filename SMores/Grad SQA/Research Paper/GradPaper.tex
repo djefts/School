@@ -14,10 +14,10 @@
 
 \title{Assuring Software Quality Through the Use of Fuzzy Testing}
 \author{\IEEEauthorblockN{David Jefts} \\
-	\IEEEauthorblockA{
-		\textit{SE625, Software Quality Assurance}}\\
-		\textit{Embry-Riddle Aeronautical University}}
-\markboth{SE625}{Software Quality Assurance}
+	\IEEEauthorblockA{SE625, Software Quality Assurance}}
+\IEEEspecialpapernotice{Embry-Riddle Aeronautical University}
+%\thanks{\LaTeX}
+\markboth{\LaTeX}{SE625}
 
 \maketitle
 
@@ -39,7 +39,7 @@
 
 \section{Introduction}
 	%Introduction
-	\IEEEPARstart{E}{nsuring} that software works properly before public (or private) release is important because software bugs, or in-code errors, can cost the developing company a lot of money. Software bugs cause program faults, and faults cause program failures. Maintenance and repair is 65-85\% of system cost \cite{slides}. Naturally, the goal during software development is to limit these defects by testing the software before release. However, "software testing is a very labor intensive and costly task, [though] many software testing techniques to automate the process of software testing have been [designed and] reported in the literature" \cite{fuzzy-logic}. One such technique is Fuzzy Testing, also called Fuzzing.
+	\IEEEPARstart{E}{nsuring} that software works properly before public (or private) release is important because software bugs, or in-code errors, can cost the developing company a lot of money. Software bugs cause program faults, and faults cause program failures. Maintenance and repair is 65-85\% of system cost \cite{slide-defect}. Naturally, the goal during software development is to limit these defects by testing the software before release. However, "software testing is a very labor intensive and costly task, [though] many software testing techniques to automate the process of software testing have been [designed and] reported in the literature" \cite{fuzzy-logic}. One such technique is Fuzzy Testing, also called Fuzzing.
 	
 	%Why I chose this topic
 	Fuzzy testing is an important topic to study because it offers an automated way to test software that is mostly reliable. What is most interesting about it is that it incorporates many different fields from the software and computer fields: Software Development/Engineering is the main application of Fuzzy Testing, Software Quality Assurance is the entire goal of Fuzzy Testing, Artificial Intelligence and Machine Learning are being used to help optimize various fuzzy testing techniques, and Software Penetration and Security Testing also uses Fuzzy Testing to "verify security functionality" \cite{penetration}.
@@ -49,7 +49,9 @@
 
 
 \section{Software Testing}
-	There are two main 'sectors', or approaches, to software testing: white-box testing and black-box testing.
+	There are two main 'sectors', or approaches, to software testing: white-box testing and black-box testing \cite{boxes}. Black Box Testing, also called Functional Testing \cite{slide-testing}, is the testing of a system with no knowledge or direct access of the internal systems in the software. Testers in this paradigm "do not have access to the source code and are oblivious of the system architecture" \cite{boxes}. Black Box testers just test the software through the provided user interface and analyzing inputs and outputs for correctness. Black Box testing usually only finds defects accessible through the user interface, and may not find all code errors.
+	
+	White Box Testing, also called Structural Testing \cite{slide-testing}, is the testing of a system \textit{with} knowledge of the internal systems software. Testers in this paradigm "have access to the source code and are aware of the system architecture" \cite{boxes}. Generally, White Box testers analyze the source code of the software and develop test cases and identify specific code paths to achieve the most raw code coverage. White Box testing generally finds more bugs and defects, but requires much more time, energy, and money.
 
 
 \section{Fuzzy Testing}
@@ -71,7 +73,6 @@
 	%Advantages and disadvantages of fuzzy testing
 	
 	%Fuzzy Testing vs Other Fuzzy Testing techniques
-
 
 \section{Conclusion}
 	%Is fuzzy testing better or worse than other methods of testing and for which cases is it better?
