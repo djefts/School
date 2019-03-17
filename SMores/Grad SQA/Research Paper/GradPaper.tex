@@ -8,6 +8,7 @@
 \usepackage [english]{babel}
 \usepackage [autostyle, english = american]{csquotes}
 \MakeOuterQuote{"}
+\usepackage{url}
 
 \begin{document}
 
@@ -33,37 +34,47 @@
 \end{abstract}
 
 \begin{IEEEkeywords}
-	Fuzzy Testing, Fuzzing, Software Quality Assurance, Software Vulnerabilities, Testing, Automated Testing, Error Detection
+	Fuzzy Testing, Fuzz Testing, Fuzzing, Smart Fuzzing, Software Quality Assurance, Quality Assurance, Software Vulnerabilities, Software Reliability, Testing, Automated Testing, Error Detection, Software Errors, Debugging, Computer Bugs, Computer Security, Testing, Product Testing, System Testing
 \end{IEEEkeywords}
 
 \section{Introduction}
-	\IEEEPARstart{E}{nsuring} that software works properly before public (or private) release is important because software bugs, or in-code errors, can cost the developing company a lot of money. Software bugs cause program faults, and faults cause program failures. Maintenance and repair is 65-85\% of system cost \cite{slides}. Naturally, the goal during software development is to limit these defects by testing the software before release. However, "software testing is a very labor intensive and costly task, [and] many software testing techniques to automate the process of software testing have been [designed and] reported in the literature" \cite{fuzzy-logic}. Reportedly, a largely effective software testing technique is called \textit{Assertion-Based} \cite{assertion-testing}. It involves finding program inputs in which various assertions are violated. When these assertions are violated then there is a fault in the program \cite{assertion-testing}.
+	%Introduction
+	\IEEEPARstart{E}{nsuring} that software works properly before public (or private) release is important because software bugs, or in-code errors, can cost the developing company a lot of money. Software bugs cause program faults, and faults cause program failures. Maintenance and repair is 65-85\% of system cost \cite{slides}. Naturally, the goal during software development is to limit these defects by testing the software before release. However, "software testing is a very labor intensive and costly task, [though] many software testing techniques to automate the process of software testing have been [designed and] reported in the literature" \cite{fuzzy-logic}. One such technique is Fuzzy Testing, also called Fuzzing.
 	
-	Why I chose this topic
+	%Why I chose this topic
+	Fuzzy testing is an important topic to study because it offers an automated way to test software that is mostly reliable. What is most interesting about it is that it incorporates many different fields from the software and computer fields: Software Development/Engineering is the main application of Fuzzy Testing, Software Quality Assurance is the entire goal of Fuzzy Testing, Artificial Intelligence and Machine Learning are being used to help optimize various fuzzy testing techniques, and Software Penetration and Security Testing also uses Fuzzy Testing to "verify security functionality" \cite{penetration}.
 	
-	Goal of this paper
+	%Goal of this paper
+	This paper seeks to summarize much of the leading-edge research on fuzzy testing. It makes the case for a much more proliferated use of fuzzy testing in the software industry and promotes additional research for better ways to optimize fuzzy testing. "Automated software testing, available to anyone and everyone at low cost, can transform the current development paradigm into one that involves more-thorough yet less-time-consuming testing" \cite{automation}. By promoting fuzzy testing as a whole, along with further development of fuzzy testing, automated software testing can be made more reliable and easier to access.
+
+
+\section{Software Testing}
+	There are two main 'sectors', or approaches, to software testing: white-box testing and black-box testing.
 
 
 \section{Fuzzy Testing}
-	What is fuzzy testing?
+	Reportedly, a largely effective software testing technique is called \textit{Assertion-Based} \cite{assertion}. It involves finding program inputs in which various assertions are violated. When these assertions are violated then there is a fault in the program \cite{assertion}.
 	
-	Fuzzy testing techniques
+	%What is fuzzy testing?
 	
-	Examples of use of fuzzy testing in industry
+	%Fuzzy testing techniques
+	SEE \cite{break-software}
 	
-	\indent\indent Explain the context of these comparisons
+	%Examples of use of fuzzy testing in industry
+	
+		%Explain the context of these comparisons
 		
-	Analyze potential applications and best-case uses for fuzzy testing
+	%Analyze potential applications and best-case uses for fuzzy testing
 	
 
 \section{Fuzzy Testing as Compared To Other Software Testing Techniques}
-	Advantages and disadvantages of fuzzy testing
+	%Advantages and disadvantages of fuzzy testing
 	
-	Fuzzy Testing vs Other Fuzzy Testing techniques
+	%Fuzzy Testing vs Other Fuzzy Testing techniques
 
 
 \section{Conclusion}
-	Is fuzzy testing better or worse than other methods of testing and for which cases is it better?
+	%Is fuzzy testing better or worse than other methods of testing and for which cases is it better?
 
 \pagebreak
 	
