@@ -103,13 +103,8 @@ class Matrix:
         # initial x guess
         x = [0] * self.n
         for row in range(self.n):
-            D = 1 / self.matrix[row][row]
-            L = 0
-            for col in range(row):
-                L += D * self.matrix[row][col] * self.matrix[col][self.n]
-                print(self.matrix[row][col], self.matrix[col][self.n], sep = '\t')
-            print("\n")
-            x[row] = D * self.matrix[row][self.n] - L
+            D = 1 / self.matrix[0][0]
+            x[row] = D * self.matrix[row][self.n]
         print("Initial Guess:", x)
         
         # consecutive x guesses
@@ -167,4 +162,5 @@ mat = Matrix([[10, -1, 2, 0, 6],
               [2, -1, 10, -1, -11],
               [0, 3, -1, 8, 15]])
 
+# mat.gaussian_elimination()
 mat.jacobi()
