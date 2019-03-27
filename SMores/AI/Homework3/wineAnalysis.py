@@ -20,8 +20,8 @@ import os
 
 # Load in the wine data set
 wine = datasets.load_wine()
-print(wine.data)
-print("\n\n", wine.target)
+print("Data:", wine.data, sep = '\n')
+print("\n\nTarget:", wine.target, sep = '\n')
 
 
 # Defining Data Pre-Processing Pipelines
@@ -46,7 +46,6 @@ class MostFrequentImputer(BaseEstimator, TransformerMixin):
     
     def transform(self, X):
         return X.fillna(self.most_frequent)
-
 
 # numeric_pipe = Pipeline([
 #     ("Select", DataFrameSelector(["Age", "Fare", "SibSp", "Parch"])),  # Selects Fields from dataframe
