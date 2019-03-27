@@ -1,6 +1,29 @@
 import math
 
 
+class ParabolicInterpolation:
+    def __init__(self, tol):
+        self.tol = tol
+    
+    def solve(self, x0, x1, x2):
+        err = abs(x2 - x1)
+        while err >= self.tol:
+            x3 = self.newX(x0, x1, x2)
+            print(x3)
+            x0 = x1
+            x1 = x2
+            x2 = x3
+            err = abs(x2 - x1)
+        return f(x2)
+    
+    def newX(self, x0, x1, x2):
+        y0 = f(x0)
+        y1 = f(x1)
+        y2 = f(x2)
+        x3 = y0 * (x1**2 - x2**2) + y1 * (x2**2 - x0**2) + y2 * (x0**2 - x1**2)
+        return x3 / (2 * (y0 * (x1 - x2) + y1 * (x2 - x0) + y2 * (x0 - x1)))
+
+
 class GoldenSearch:
     def __init__(self, tol):
         self.tol = tol
@@ -35,40 +58,17 @@ class GoldenSearch:
         return f(a1)
 
 
-class ParabolicInterpolation:
-    def __init__(self, tol):
-        self.tol = tol
-    
-    def solve(self, x0, x1, x2):
-        err = abs(x2 - x1)
-        while err >= self.tol:
-            x3 = self.newX(x0, x1, x2)
-            print(x3)
-            x0 = x1
-            x1 = x2
-            x2 = x3
-            err = abs(x2 - x1)
-        return f(x2)
-    
-    def newX(self, x0, x1, x2):
-        y0 = f(x0)
-        y1 = f(x1)
-        y2 = f(x2)
-        x3 = y0 * (x1**2 - x2**2) + y1 * (x2**2 - x0**2) + y2 * (x0**2 - x1**2)
-        return x3 / (2 * (y0 * (x1 - x2) + y1 * (x2 - x0) + y2 * (x0 - x1)))
-
-
 def f(x):
-    return x**2 + 2 * x  # find min
+    # return x**2 + 2 * x  # find min
     # return -x**2 + 2 * x  # find max
-    # return 2 * math.sin(x) - (x**2 / 10)
+    return 2 * math.sin(x) - (x**2 / 10)  # find max for lab #6
 
 
 tolerance = 0.00001
-g1 = -10
-g2 = 10
-g3 = 7
+g1 = 0  # starting interval
+g2 = 4  # ending interval
 gold = GoldenSearch(tolerance)
-print("Solution:", gold.min(g1, g2))
-para = ParabolicInterpolation(tolerance)
-print("Solution:", para.solve(g1, g2, g3))
+print("Solution:", gold.max(g1, g2))
+g3 = 7
+# para = ParabolicInterpolation(tolerance)
+# print("Solution:", para.solve(g1, g2, g3))
