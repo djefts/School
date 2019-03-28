@@ -20,8 +20,13 @@
 \usepackage{relsize}
 \usepackage[nameinlink, capitalize, noabbrev]{cleveref}
 \usepackage{tabu}
-\usepackage[colorlinks=false, hidelinks, breaklinks]{hyperref}
-\usepackage{cleveref}
+
+\setlength\parskip{\baselineskip}
+
+%prevent hyphenation of words
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
 
 \begin{document}
 
@@ -34,7 +39,7 @@
 %Course, subject, name, date
 \title{MA348 Numerical Analysis, Optimization of Functions}
 \author{David Jefts}
-\date{March 25\textsuperscript{th}, 2019}
+\date{March 28\textsuperscript{th}, 2019}
 \begin{titlepage}
 	\centering
 	\maketitle
@@ -50,108 +55,110 @@
 %Introduction: 5pts
 %Describe the problem and state objectives
 \section{\label{sec:intro}Introduction}
-	%Write a code to implement the Golden search method to find the maximum of the function f(x)=2 sin(x)-x2/10. Write a short report on how you implemented your code and what were the results, discuss convergence.
-	The goal of this lab was to create a program that could find the maximum (or minimum) of a function using the Golden Search bracketing method. The function below was used for the purpose of this lab and to test the program written to find the minimum and maximum: 
+	%Write a code to implement the Golden search method to find the maximum of the function f(x)=2 sin(x)-x2/10. Write a short report on how you implemented your code and what the results were, discuss convergence.
+	This lab is based off of using The Golden Ratio ($\varphi$) as a constant proportional value to find the extremum (maximum or minimum) of a function. The goal of this lab is to use the Golden-Section Search bracketing method to find the maximum of the function below: 
 	
-	\begin{equation*}{f(x)=2 sin(x)-x^2/10}\end{equation*}
+	\begin{equation}{f(x)=2 sin(x)-x^2/10}\end{equation}
 
 %Theory-Analysis: 5pts
 %State assumptions and develop equations
 \section{\label{sesc:theory}Theory-Analysis}
-	 There were no special equations used in this lab, nor were there any assumptions made. The method used was a bracketing method based on the Golden Ratio ($\varphi=0.61803$), as explained in Section \ref{sec:solution}, and the Matrix Row Operations, row switching, row multiplication, and row addition. Row switching is swapping the position of one row with another row. Row multiplication is multiplying a row by a constant. Row addition is replacing a row by the sum of that row and some multiple of another row.
+	 The Golden Ratio Search method is a bracketing method that involves recursively modifying the upper and lower bounds that the function searches on until the two bounds are equivalent within the specified tolerance. The bound to be changed is the bound that furthest from the local vertex of the equation. From hereon-in, the left-bound will be referred to as $a$, and the right-bound is $b$. The `new' values for both of these bounds are $a_1$ and $b_1$, respectively. This search method seeks to change each bound proportionally, as opposed to a set value, to prevent `overshooting' the target vertex value. The 3 initial equations that represent this are: 
+	 
+	 \begin{equation}{(b_1-a)=s(b-a)}\end{equation}
+	 \begin{equation}{(b-a_1)=s(b-a)}\end{equation}
+	 \begin{equation}{(a_1-a)=s(b_1-a)}\end{equation}
+	 
+	 Where $s$ is some (currently unknown) numerical constant, Equation 2 checks that the new $b$ value is proportional to the original range, Equation 3 confirms that the new $a$ value is proportional to the original range, and Equation 4 certifies that the change in $a$ is proportional to the new range of values.
+	
+	Substitute (2) into (4):
+	
+	\begin{equation}{(a_1-a)=s^2(b-a)}\end{equation}
+	
+	Add (3) to (5) and simplify:
+	
+	\begin{equation}{(b-a)=s^2(b-a) + s(b-a)}\end{equation}
+	
+	Divide (6) by $(b-a)$:
+	
+	\begin{equation}{1=s^2 + s}\end{equation}
+	 
+	Rearrange (7) into a quadratic and then solve for $s$:
+	
+	\begin{equation}{0=s^2 + s - 1}\end{equation}
+	
+	\begin{equation*}{s=-\frac{1\pm\sqrt{5}}{2}}\quad\text{or}\quad{s=0.618, -1.618}\end{equation*}
+	
+	For this lab, only the positive root was necessary and  was estimated to be $s=\approx0.6180339887$.
+	
+	To calculate the new $a$ or $b$ value, solve (2) or (3) for $b_1$ or $a_1$, respectively:
+	
+	\begin{equation}{b_1=a+s(b-a)}\end{equation}
+	
+	\begin{equation}{a_1=b-s(b-a)}\end{equation}
 
 	 
 %Numerical Solution: 20pts
 %Describe the numerical methods used to solve the problem
 \section{\label{solution}Numerical Solution}
-	The entirety of the Gaussian Elimination was coded in Python, with the matrices displayed created in \LaTeX{}.
+	The entirety of the Golden-Section Search maximum search was coded in Python, with the report created in \LaTeX{}.
 	
-	Gaussian Elimination has two major steps, with two optional steps that are discussed at the end of this section. Forward Elimination, which solves the bottom half of the matrix, followed by Backwards Substitution, which solves for the variable values.
-	 
-	 By the end of the Forward Elimination step, the bottom left-hand corner of the matrix, as highlighted below, should be all equivalent to 0. \vspace{\baselineskip}
+	This method is very similar to other bracketing methods such as The Bisection Method or The Newton-Raphson Method, except with it the goal is to calculate the extrema of a function instead of the roots. It requires two initial guesses, one on either side of the supposed location of the extrema. For this lab, the initial guess was $[0, 4]$ where the left value is represented by the variable $a$ and is the lower bound of the search space, while the right value is represented by the variable $b$ and is the upper bound of the search space.
 	
-	This is accomplished through a multi-step algorithm. Below is a walkthrough of the method using the matrix mentioned in the introduction. Matrices can be modified by adding and subtracting rows of the matrix from other rows.\vspace{\baselineskip}
+	The Golden-Section Search is an iterative method, continuing until $(b-a)$ is less than a predetermined tolerance, $1\times10^{-5}$ was used during testing. Each iteration calculates the values for $a_1$ and $b_1$, and compares the result of substituting them into the base function. When trying to find the maximum, if $f(a_1)\geq f(b_1)$, then the b value is replaced by $b_1$. If not, then the $a$ value is replaced by $a_1$. This moves the edge of the range furthest from the maximum towards the maximum value.
 	
-	Step 1: The first step begins with the first column and the second row. The goal is to make each spot in the bottom left corner equivalent to 0. For the first step the first row of the matrix is subtracted from each of the other rows a number of times until each spot in that column, below the main diagonal, is equivalent to 0. For the second row, adding the first row just once is sufficient to make a zero ($R_2 + R_1 \rightarrow R_2$, where $R_1$ and $R_2$ refer to rows 1 and 2, respectively), in this case the multiplier for the row is $-1$. To add two rows together, sum the values in each of the matching columns independently. The result is the left matrix. Continuing this process on the third row, achieving a 0 in the first column can be done with: $R_2 - (2\times R_1) \rightarrow R_2$ and the result is the right matrix, in this case the multiplier would be 2.
-	
-	\begin{center}
-		\begin{blockarray}{cccc}
-			\begin{block}{ [ ccc !{\color{darkgray}\vrule} c ]}
-				\bigstrut[t]
-				 1 & -1 &  3 & -3 \\
-				 0 &  -1 & 1 &  -2 \\
-				 2 &  2 &  4 &  0 \bigstrut[b] \\
-			\end{block}
-		\end{blockarray}
-		\hspace{1cm}
-		\begin{blockarray}{cccc}
-			\begin{block}{ [ ccc !{\color{darkgray}\vrule} c ]}
-				\bigstrut[t]
-				 1 & -1 &  3 & -3 \\
-				 0 &  -1 & 1 &  -2 \\
-				 0 &  4 &  -2 &  6 \bigstrut[b] \\
-			\end{block}
-		\end{blockarray}
-	\end{center}
-	
-	Step 2: The second step is the same process as the first step, but using the second row to make the second column, below the main diagonal, equivalent to 0. For the third row, achieving a 0 in the second column can be done with: $R_2 + (4\times R_1) \rightarrow R_2$ and the result is the matrix below.
-	
-	\begin{center}
-		\begin{blockarray}{cccc}
-			\begin{block}{ [ ccc !{\color{darkgray}\vrule} c ]}
-				\bigstrut[t]
-				 1 & -1 &  3 & -3 \\
-				 0 &  -1 & 1 &  -2 \\
-				 0 &  0 &  2 &  -2 \bigstrut[b] \\
-			\end{block}
-		\end{blockarray}
-	\end{center}
-	
-	The next major step of the Gaussian Elimination Method is Backwards Substitution. Backwards substitution finds the final solution, by converting the matrix back into a system of equations and solving `up' the matrix to find all of the x values.
-	
-	\begin{center}
-		\begin{blockarray}{cccc}
-			\begin{block}{ [ ccc !{\color{darkgray}\vrule} c ]}
-				\bigstrut[t]
-				 1 & -1 &  3 & -3 \\
-				 0 &  -1 & 1 &  -2 \\
-				 0 &  0 &  2 &  -2 \bigstrut[b] \\
-			\end{block}
-		\end{blockarray}
-		\scalebox{1.75}{$\rightarrow$}
-		\systeme{x-y+3z=-3, -y+z=-2, 2z=-2}
-	\end{center}
-	
-	$z$ can now easily be solved for, resulting in $-1$. Substitute $z$ into the second equation to find $y$, then substitute $y$ and $z$ into the first equation to calculate $x$. Then the matrix is solved.
-	\vspace{\baselineskip}
-	
-	Two minor methods that are not always necessary for the Gaussian Elimination Method are Scaling and Partial Pivoting. Scaling is dividing each element by the highest value in a given row. This scales down the matrix so that no number is greater than 1. This can reduce the complexity of the matrix and help it be more readable, but it also increases the chance of round-off errors in computers since some fractions cannot be well-represented digitally. 
-	
-	Partial Pivoting is required if, at any point in the Forward Elimination Step, a number in the main diagonal is equivalent to 0. This causes errors when finding the multiplier since numbers cannot be divided by 0. Partial Pivoting is the swapping of two rows so that the number on the main diagonal is not 0. The current row is swapped with the row that has the highest absolute value for the column currently being worked on. So if the current row has a 0 in the 3rd column and this 0 is on the main diagonal, then the Partial Pivot would swap the current row with whichever row has the greatest absolute value in the 3rd column.
+	One drawback to this method is that it requires a slightly different algorithm when trying to find the minimum of a function: if $f(a_1)\leq f(b_1)$, then the b value is replaced by $b_1$. If not, then the $a$ value is replaced by $a_1$. This is because the comparison uses an inequality to determine the bounds of the next iteration.
 
-
+\newpage
 %Results and Discussion: 45pts
 %Tabulate and plot the results, compare results, and discuss the accuracy of results
 \section{\label{sec:results}Results and Discussion}
-    	The table of the $a$ and $b$ values as described in Section \ref{sec:solution} is shown below:\vspace{\baselineskip}
+    	The table of the $a$ and $b$ values as described in the Numerical Solution Section is shown below:
 	
-	\begin{center}
-	\begin{tabular}{|c|c|c|}
+	\begin{table}[h]
+	\centering
+	\begin{tabular}{|l|l|}
 		\hline
-		hello & hello & hello \\
-		\hline
+		$\mathbf{a_1}$ & $\mathbf{b_1}$ \\ \hline
+		0           & 4           \\ \hline
+		0           & 2.472135955 \\ \hline
+		0.94427191  & 2.472135955 \\ \hline
+		0.94427191  & 1.88854382  \\ \hline
+		1.304951685 & 1.88854382  \\ \hline
+		1.304951685 & 1.66563146  \\ \hline
+		1.304951685 & 1.527864045 \\ \hline
+		1.39009663  & 1.527864045 \\ \hline
+		1.39009663  & 1.475241575 \\ \hline
+		1.39009663  & 1.4427191   \\ \hline
+		1.410196625 & 1.4427191   \\ \hline
+		1.422619105 & 1.4427191   \\ \hline
+		1.422619105 & 1.435041585 \\ \hline
+		1.422619105 & 1.43029662  \\ \hline
+		1.425551655 & 1.43029662  \\ \hline
+		1.425551655 & 1.428484204 \\ \hline
+		1.426671789 & 1.428484204 \\ \hline
+		1.426671789 & 1.427791923 \\ \hline
+		1.427099642 & 1.427791923 \\ \hline
+		1.42736407  & 1.427791923 \\ \hline
+		1.42736407  & 1.427628498 \\ \hline
+		1.427465073 & 1.427628498 \\ \hline
+		1.427527496 & 1.427628498 \\ \hline
+		1.427527496 & 1.427589918 \\ \hline
+		1.427527496 & 1.427566075 \\ \hline
+		1.427542232 & 1.427566075 \\ \hline
+		1.427542232 & 1.427556968 \\ \hline
 	\end{tabular}
-	\end{center}
+	\end{table}
+	
+	The maximum value for the function $f(x)=2 sin(x)-x^2/10$ is approximately $1.7757256531306822$ when $x\approx1.42754959962$.
 
 
 %Conclusions: 20pts
 %Comment on the efficiency of the solvers
 \section{\label{conclusion}Conclusions}
-	The Gaussian Elimination Method is very effective at solving matrices, however it has a high operation cost, at $O(n)=O(\frac{2}{3}n^3) + O(n^2)$. Additionally, the method may require the entire matrix to be scaled beforehand which can increase the chance of rounding error when solving with a computer, and certain matrices require pivoting which slightly increases the overall complexity. In conclusion, the Gaussian Elimination Method is very effective at solving matrices and guarantees a solution, but it sacrifices operational power to do so. 
+	The Golden-Section Search method is very effective at finding the extrema of functions, however it seems to take an exceptional amount of iterations to achieve small tolerances. Additionally, the method requires calculating $a_1$ and $b_1$ every iteration which inefficient. In conclusion, the Golden-Section Search Method is very effective at finding extrema and guarantees a solution, but it requires different methods for minimum and maximum and does not seem particularly efficient. 
 
 \pagebreak
-
-
 %Appendices
 %Include listings of the source codes, include printed copies of the output files
 \appendix

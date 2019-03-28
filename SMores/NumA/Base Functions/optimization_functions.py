@@ -49,7 +49,7 @@ class GoldenSearch:
         while err > self.tol:
             b1 = a + self.s * (b - a)
             a1 = b - self.s * (b - a)
-            print(a, b)
+            print(a, b, sep = '\t')
             if f(a1) < f(b1):
                 a = a1
             else:
