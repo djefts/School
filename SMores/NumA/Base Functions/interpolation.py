@@ -11,10 +11,11 @@ class Interpolation:
     def div_diff(self, order, x, spot):
         if order == 1:
             return self.f(x)
-        
+    
         if spot - order == 0:
             self.polynomial[order] = self.div_diff(order - 1, x, spot - 1) - self.div_diff(order - 1, x, spot)
             self.polynomial[order] /= (self.values[spot] - self.values[spot - order])
+        print("Current poly at {}: {}".format(order, self.polynomial[order]))
         return self.div_diff(order - 1, x, spot - 1)
     
     def f(self, x):
@@ -35,6 +36,7 @@ class Interpolation:
         solution = 0
         self.build_poly(self.o, x)
         solution += (p for p in self.polynomial)
+        return solution
 
 
 pt1 = (1, 0)
@@ -43,3 +45,4 @@ pt3 = (5, 1.609438)
 pt4 = (6, 1.791759)
 points = [pt1, pt2, pt3, pt4]
 inter = Interpolation(4, points)
+print(inter.approximate(2))
