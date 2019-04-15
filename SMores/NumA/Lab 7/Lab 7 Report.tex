@@ -1,0 +1,158 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage[numbers]{natbib}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+\usepackage{layout}
+\usepackage[title]{appendix}
+\usepackage[justification=centering]{caption}
+\usepackage{titlesec}
+\usepackage[percent]{overpic}
+\usepackage{amsmath}
+\usepackage{systeme}
+\usepackage{blkarray, bigstrut}
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+\usepackage[utf8]{inputenc}
+\usepackage{relsize}
+\usepackage[nameinlink, capitalize, noabbrev]{cleveref}
+\usepackage{tabu}
+
+\setlength\parskip{\baselineskip}
+
+%prevent hyphenation of words
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+
+\begin{document}
+
+\setcounter{secnumdepth}{-1}
+\titlespacing*{\section}{0pt}{2\baselineskip}{.33333\baselineskip}
+\binoppenalty=\maxdimen
+\relpenalty=\maxdimen
+
+%Cover page: 5pts
+%Course, subject, name, date
+\title{MA348 Numerical Analysis, Function Interpolation}
+\author{David Jefts}
+\date{April 8\textsuperscript{th}, 2019}
+\begin{titlepage}
+	\centering
+	\maketitle
+	\centering
+	\hfill
+	\vfill
+	\thispagestyle{empty}
+\end{titlepage}
+
+\setlength{\voffset}{-0.5in}
+\setlength{\headsep}{10pt}
+
+%Introduction: 5pts
+%Describe the problem and state objectives
+\section{\label{sec:intro}Introduction}
+	%Use both the Newton divided differences polynomial and the Lagrange polynomial to approximate ln(2) given the following points: ( you will use polynomial of degree3)
+	The purpose of this lab is to use Newton's Divided Difference Polynomials and Lagrange Polynomials to estimate the value of a function at any given point, using only a set of $x-$ and $y-$values. The function to be estimated is the natural logarithm function at the point $x=2$ ($ln(2)$). The estimated line was drawn with the following points:
+		
+	\begin{align*}
+		x && y \\
+		(1, && 0) \\
+		(4, && 1.386294) \\
+		(5, && 1.0609438) \\
+		(6, && 1.791759) \\
+	\end{align*}
+
+%Theory-Analysis: 5pts
+%State assumptions and develop equations
+\section{\label{sec:theory}Theory-Analysis}
+	 Newton's Divided Differences Interpolation Polynomial is a polynomial used to estimate the value of a function when the exact function and its line are not known. This lab was based on creating a polynomial of degree three using four distinct points. The Interpolation Polynomial combines a series of successive Newton Differences into a polynomial using the formula:
+	 
+	 \begin{equation}N(x)=[y_0]+[y_0, y_1](x-x_0)+\ldots+[y_0, \ldots, y_k](x-x_0)(x-x_1)\ldots(x-x_k)\end{equation}
+	 
+	 Where the bracketed $y$ values are Newton Differences of varying sizes where the Newton Divided Difference are:
+	 
+	 \begin{align*}
+	 	\text{Degree one: } && [y_0] = & f(x_0) \\
+		\text{Degree two: } && [y_0, y_1] = & \frac{[y_1]-[y_0]}{x_1-x_0} = \frac{f(x_1)-f(x_0)}{x_1-x_0} \\
+		\text{Degree three: } && [y_0, y_1, y_2] = & \frac{[y_1, y_2] - [y_0, y_1]}{x_2-x_0} = \frac{\frac{f(x_2)-f(x_1)}{x_2-x_1} - \frac{f(x_1)-f(x_0)}{x_1-x_0}}{x_2-x_0} \\
+	\end{align*}
+	
+	
+
+	 
+%Numerical Solution: 20pts
+%Describe the numerical methods used to solve the problem
+\section{\label{solution}Numerical Solution}
+	The entirety of the Newton Divided Differences interpolation method was coded in Python, with the report created in \LaTeX{}.
+	
+	This method is very similar to other bracketing methods such as The Bisection Method or The Newton-Raphson Method, except with it the goal is to calculate the extrema of a function instead of the roots. It requires two initial guesses, one on either side of the supposed location of the extrema. For this lab, the initial guess was $[0, 4]$ where the left value is represented by the variable $a$ and is the lower bound of the search space, while the right value is represented by the variable $b$ and is the upper bound of the search space.
+	
+	The Golden-Section Search is an iterative method, continuing until $(b-a)$ is less than a predetermined tolerance, $1\times10^{-5}$ was used during testing. Each iteration calculates the values for $a_1$ and $b_1$, and compares the result of substituting them into the base function. When trying to find the maximum, if $f(a_1)\geq f(b_1)$, then the b value is replaced by $b_1$. If not, then the $a$ value is replaced by $a_1$. This moves the edge of the range furthest from the maximum towards the maximum value.
+	
+	One drawback to this method is that it requires a slightly different algorithm when trying to find the minimum of a function: if $f(a_1)\leq f(b_1)$, then the b value is replaced by $b_1$. If not, then the $a$ value is replaced by $a_1$. This is because the comparison uses an inequality to determine the bounds of the next iteration.
+
+\newpage
+%Results and Discussion: 45pts
+%Tabulate and plot the results, compare results, and discuss the accuracy of results
+\section{\label{sec:results}Results and Discussion}
+    	The table of the $a$ and $b$ values as described in the Numerical Solution Section is shown below:
+	
+	\begin{table}[h]
+	\centering
+	\begin{tabular}{|l|l|}
+		\hline
+		$\mathbf{a_1}$ & $\mathbf{b_1}$ \\ \hline
+		0           & 4           \\ \hline
+		0           & 2.472135955 \\ \hline
+		0.94427191  & 2.472135955 \\ \hline
+		0.94427191  & 1.88854382  \\ \hline
+		1.304951685 & 1.88854382  \\ \hline
+		1.304951685 & 1.66563146  \\ \hline
+		1.304951685 & 1.527864045 \\ \hline
+		1.39009663  & 1.527864045 \\ \hline
+		1.39009663  & 1.475241575 \\ \hline
+		1.39009663  & 1.4427191   \\ \hline
+		1.410196625 & 1.4427191   \\ \hline
+		1.422619105 & 1.4427191   \\ \hline
+		1.422619105 & 1.435041585 \\ \hline
+		1.422619105 & 1.43029662  \\ \hline
+		1.425551655 & 1.43029662  \\ \hline
+		1.425551655 & 1.428484204 \\ \hline
+		1.426671789 & 1.428484204 \\ \hline
+		1.426671789 & 1.427791923 \\ \hline
+		1.427099642 & 1.427791923 \\ \hline
+		1.42736407  & 1.427791923 \\ \hline
+		1.42736407  & 1.427628498 \\ \hline
+		1.427465073 & 1.427628498 \\ \hline
+		1.427527496 & 1.427628498 \\ \hline
+		1.427527496 & 1.427589918 \\ \hline
+		1.427527496 & 1.427566075 \\ \hline
+		1.427542232 & 1.427566075 \\ \hline
+		1.427542232 & 1.427556968 \\ \hline
+	\end{tabular}
+	\end{table}
+	
+	The maximum value for the function $f(x)=2 sin(x)-x^2/10$ is approximately $1.7757256531306822$ when $x\approx1.42754959962$.
+
+
+%Conclusions: 20pts
+%Comment on the efficiency of the solvers
+\section{\label{conclusion}Conclusions}
+	The Golden-Section Search method is very effective at finding the extrema of functions, however it seems to take an exceptional amount of iterations to achieve small tolerances. Additionally, the method requires calculating $a_1$ and $b_1$ every iteration which inefficient. In conclusion, the Golden-Section Search Method is very effective at finding extrema and guarantees a solution, but it requires different methods for minimum and maximum and does not seem particularly efficient. 
+
+\pagebreak
+%Appendices
+%Include listings of the source codes, include printed copies of the output files
+\appendix
+	\section{Appendix A}
+%            		\begin{figure}[htp]
+%            			\centering
+%            			\includegraphics[width=1.0\linewidth]{}
+%            		\end{figure}
+
+
+\end{document}

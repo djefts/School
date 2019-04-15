@@ -46,3 +46,8 @@ pt4 = (6, 1.791759)
 points = [pt1, pt2, pt3, pt4]
 inter = Interpolation(4, points)
 print(inter.approximate(2))
+#
+# [2(h_o+h_1) h_1         0           0       0       0       0] [c_1]
+# [h_1        2(h_1+h_2)  h_2         0       0       0       0] [c_2]
+# [0          h_i         2(h_i+h_i)  h_i     0       0       0] [c_i]
+# [0          0           h_i         2(h_n+h_n)      h_n     0] [c_n]
