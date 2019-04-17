@@ -1,6 +1,4 @@
-# Python3 program for implementing
-# Newton divided difference formula
-
+# Code adapted from geeksforgeeks.org
 
 # Function to find the product term
 def proterm(i, value, x):
@@ -10,8 +8,7 @@ def proterm(i, value, x):
     return pro
 
 
-# Function for calculating
-# divided difference table
+# Function for calculating divided difference table
 def dividedDiffTable(x, y, n):
     for i in range(1, n):
         for j in range(n - i):
@@ -19,66 +16,36 @@ def dividedDiffTable(x, y, n):
     return y
 
 
-# Function for applying Newton’s
-# divided difference formula
+# Function for applying Newton’s divided difference formula
 def applyFormula(value, x, y, n):
     sum = y[0][0]
-    for i in range(1, n):
+    for i in range(n):
         sum = sum + (proterm(i, value, x) * y[0][i])
+        print("Sum: ", sum)
     return sum
 
 
-# Function for displaying divided
-# difference table
+# Function for displaying divided difference table
 def printDiffTable(y, n):
     for i in range(n):
         for j in range(n - i):
-            print("{:.4}\t".format(y[i][j]), end = " ")
+            print("{:}\t".format(y[i][j]), end = " ")
         print("")
 
 
-def getDiffCoef(x, y, n, value):
-    y = dividedDiffTable(x, y, n)
-    return applyFormula(value, x, y, n)
-
-
-# Driver Code
-
-# number of inputs given
+# set up inputs
 n = 4
 y = [[0.0 for i in range(10)] for j in range(10)]
-x = [5.0, 6.0, 9.0, 11.0]
-
-# y[][] is used for divided difference
-# table where y[][0] is used for input
-y[0][0] = 12.0
-y[1][0] = 13.0
-y[2][0] = 14.0
-y[3][0] = 16.0
-
-
-pt1 = (1, 0)
-pt2 = (4, 1.386294)
-pt3 = (5, 1.609438)
-pt4 = (6, 1.791759)
-
 x = [1.0, 4.0, 5.0, 6.0]
-y[0][0] = 0.0
+y[0][0] = 0.0000
 y[1][0] = 1.386294
-y[2][0] = 1.0609438
+y[2][0] = 1.609438
 y[3][0] = 1.791759
-
-
 # calculating divided difference table
 y = dividedDiffTable(x, y, n)
-
 # displaying divided difference table
 printDiffTable(y, n)
-
 # value to be interpolated
 value = 2
-
 # printing the value
 print("\nValue at", value, "is", "{:.4}".format(applyFormula(value, x, y, n)))
-
-# This code is contributed by mits

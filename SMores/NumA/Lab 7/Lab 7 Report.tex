@@ -31,9 +31,14 @@
 \begin{document}
 
 \setcounter{secnumdepth}{-1}
-\titlespacing*{\section}{0pt}{2\baselineskip}{.33333\baselineskip}
+\titlespacing*{\section}{0pt}{1.5\baselineskip}{.25\baselineskip}
 \binoppenalty=\maxdimen
 \relpenalty=\maxdimen
+
+\setlength{\abovedisplayskip}{-0.5\baselineskip}
+\setlength{\belowdisplayskip}{0\baselineskip}
+\setlength{\abovedisplayshortskip}{0\baselineskip}
+\setlength{\belowdisplayshortskip}{0\baselineskip}
 
 %Cover page: 5pts
 %Course, subject, name, date
@@ -60,11 +65,13 @@
 		
 	\begin{align*}
 		x && y \\
-		(1, && 0) \\
+		(1, && 0.0) \\
 		(4, && 1.386294) \\
-		(5, && 1.0609438) \\
+		(5, && 1.609438) \\
 		(6, && 1.791759) \\
 	\end{align*}
+	
+	The Lagrange Polynomial portion of this lab is based on the fact that interpolating a line through four distinct points requires a minimum polynomial degree of three.
 
 %Theory-Analysis: 5pts
 %State assumptions and develop equations
@@ -73,7 +80,7 @@
 	 
 	 \begin{equation}N(x)=[y_0]+[y_0, y_1](x-x_0)+\ldots+[y_0, \ldots, y_k](x-x_0)(x-x_1)\ldots(x-x_k)\end{equation}
 	 
-	 Where the bracketed $y$ values are Newton Differences of varying sizes where the Newton Divided Difference are:
+	 The bracketed $y$ values ($[y_0]$, $[y_0, y_1]$, etc.) are Newton Divided Differences of varying sizes based on the following formula:
 	 
 	 \begin{align*}
 	 	\text{Degree one: } && [y_0] = & f(x_0) \\
@@ -81,7 +88,7 @@
 		\text{Degree three: } && [y_0, y_1, y_2] = & \frac{[y_1, y_2] - [y_0, y_1]}{x_2-x_0} = \frac{\frac{f(x_2)-f(x_1)}{x_2-x_1} - \frac{f(x_1)-f(x_0)}{x_1-x_0}}{x_2-x_0} \\
 	\end{align*}
 	
-	
+	There were no assumptions made in this lab.
 
 	 
 %Numerical Solution: 20pts
@@ -89,70 +96,98 @@
 \section{\label{solution}Numerical Solution}
 	The entirety of the Newton Divided Differences interpolation method was coded in Python, with the report created in \LaTeX{}.
 	
-	This method is very similar to other bracketing methods such as The Bisection Method or The Newton-Raphson Method, except with it the goal is to calculate the extrema of a function instead of the roots. It requires two initial guesses, one on either side of the supposed location of the extrema. For this lab, the initial guess was $[0, 4]$ where the left value is represented by the variable $a$ and is the lower bound of the search space, while the right value is represented by the variable $b$ and is the upper bound of the search space.
-	
-	The Golden-Section Search is an iterative method, continuing until $(b-a)$ is less than a predetermined tolerance, $1\times10^{-5}$ was used during testing. Each iteration calculates the values for $a_1$ and $b_1$, and compares the result of substituting them into the base function. When trying to find the maximum, if $f(a_1)\geq f(b_1)$, then the b value is replaced by $b_1$. If not, then the $a$ value is replaced by $a_1$. This moves the edge of the range furthest from the maximum towards the maximum value.
-	
-	One drawback to this method is that it requires a slightly different algorithm when trying to find the minimum of a function: if $f(a_1)\leq f(b_1)$, then the b value is replaced by $b_1$. If not, then the $a$ value is replaced by $a_1$. This is because the comparison uses an inequality to determine the bounds of the next iteration.
-
-\newpage
-%Results and Discussion: 45pts
-%Tabulate and plot the results, compare results, and discuss the accuracy of results
-\section{\label{sec:results}Results and Discussion}
-    	The table of the $a$ and $b$ values as described in the Numerical Solution Section is shown below:
+	The divided differences are based on finding derivates, which are used to draw a slope between two points. Usually they are depicted in a table, since each successive divided difference uses the divided differences from the previous iteration and the next point like so (where \{DD $n$\} stands for divided difference of degree $n$):
 	
 	\begin{table}[h]
 	\centering
-	\begin{tabular}{|l|l|}
-		\hline
-		$\mathbf{a_1}$ & $\mathbf{b_1}$ \\ \hline
-		0           & 4           \\ \hline
-		0           & 2.472135955 \\ \hline
-		0.94427191  & 2.472135955 \\ \hline
-		0.94427191  & 1.88854382  \\ \hline
-		1.304951685 & 1.88854382  \\ \hline
-		1.304951685 & 1.66563146  \\ \hline
-		1.304951685 & 1.527864045 \\ \hline
-		1.39009663  & 1.527864045 \\ \hline
-		1.39009663  & 1.475241575 \\ \hline
-		1.39009663  & 1.4427191   \\ \hline
-		1.410196625 & 1.4427191   \\ \hline
-		1.422619105 & 1.4427191   \\ \hline
-		1.422619105 & 1.435041585 \\ \hline
-		1.422619105 & 1.43029662  \\ \hline
-		1.425551655 & 1.43029662  \\ \hline
-		1.425551655 & 1.428484204 \\ \hline
-		1.426671789 & 1.428484204 \\ \hline
-		1.426671789 & 1.427791923 \\ \hline
-		1.427099642 & 1.427791923 \\ \hline
-		1.42736407  & 1.427791923 \\ \hline
-		1.42736407  & 1.427628498 \\ \hline
-		1.427465073 & 1.427628498 \\ \hline
-		1.427527496 & 1.427628498 \\ \hline
-		1.427527496 & 1.427589918 \\ \hline
-		1.427527496 & 1.427566075 \\ \hline
-		1.427542232 & 1.427566075 \\ \hline
-		1.427542232 & 1.427556968 \\ \hline
+	\begin{tabular}{>{$}c<{$} >{$}c<{$} >{$}c<{$} >{$}c<{$}}
+	x \text{ input} & \text{DD 1} & \text{DD 2} & \text{DD 3} \\
+	x_0 & f(x_0) &&  \\
+	&& \frac{f(x_1)-f(x_0)}{x_1-x_0} & \\
+	x_1 & f(x_1) && \frac{\frac{f(x_2)-f(x_1)}{x_2-x_1} - \frac{f(x_1)-f(x_0)}{x_1-x_0}}{x_2-x_0} \\
+	&& \frac{f(x_2)-f(x_1)}{x_2-x_1} & \\
+	x_2 & f(x_2) && \frac{\frac{f(x_3)-f(x_2)}{x_3-x_2} - \frac{f(x_2)-f(x_1)}{x_2-x_1}}{x_3-x_1} \\
+	&& \frac{f(x_3)-f(x_2)}{x_3-x_2} & \\
+	\vdots & \vdots &  & \vdots \\
+	 &  & \vdots &  \\
+	\vdots & \vdots &  & \vdots \\
+	x_n & f(x_n) &  &  \\
 	\end{tabular}
 	\end{table}
 	
-	The maximum value for the function $f(x)=2 sin(x)-x^2/10$ is approximately $1.7757256531306822$ when $x\approx1.42754959962$.
+	The highest entry in each column is then used as the coefficient of the interpolation polynomial. Each coefficient is multiplied by $(x-x_i)$ $(k-1)$ number of times with the following formula:
+	
+	\begin{equation*} \begin{split}
+	N(x) = \text{DD1} + \text{DD2}(x-x_0) + \text{DD3} (x-x_0)(x-x_1) + \text{DD4} (x-x_0)(x-x_1)(x-x_2)
+	\end{split} \end{equation*}
+	
+	Once the polynomial is created, it can be used as a function to estimate the value of any point on the interpolated function line.
+
+
+%Results and Discussion: 45pts
+%Tabulate and plot the results, compare results, and discuss the accuracy of results
+\section{\label{sec:results}Results and Discussion}
+    	The table of the divided differences values and coefficients (rounded to four decimal places) as described in the Numerical Solution Section is shown below:
+	
+	\begin{table}[h]
+	\centering
+	\begin{tabular}{>{$}c<{$} >{$}c<{$} >{$}c<{$} >{$}c<{$} >{$}c<{$}}
+	x \text{ input} & \text{DD 1} & \text{DD 2} & \text{DD 3} & \text{DD 4}\\
+	1.0 & 0.0 &&&  \\
+	&& [y_0, y_1]=0.4621 && \\
+	4.0 & 1.3863 && [y_0, y_1, y_2]=-0.1969 \\
+	&& [y_1, y_2]=-0.3254 & & [y_0, y_1, y_2, y_3]=0.1450 \\
+	5.0 & 1.0609 && [y_0, y_1, y_2]=0.5281 \\
+	&& [y_2, y_3]=0.7308 && \\
+	6.0 & 1.7918 &  &  \\
+	\end{tabular}
+	\end{table}
+	
+	The final polynomial is therefore:
+	
+	\begin{equation*}
+	f(x) = 0.4102249 + 0.3285789(x-1.0) + 0.0189155(x-1.0)(x-4.0) + 0.0078654(x-1.0)(x-4.0)(x-5.0)
+	\end{equation*}
+	
+	Simplified:
+	
+	\begin{equation*}
+	f(x) = 0.0078654x^3 - 0.0597385x^2 + 0.462098x + 0
+	\end{equation*}
+	%$(C)x^3+(-B-10C)x^2+(A+5B+29C)x+(-A+4B-20C)$
+	\newpage
+	Below is the graph of the interpolated polynomial, the initial input coordinates, and the estimated value for ln(2):
+	\begin{figure}[htp]
+            			\centering
+            			\includegraphics[width=1.0\linewidth]{plot.png}
+            		\end{figure}
+	
 
 
 %Conclusions: 20pts
 %Comment on the efficiency of the solvers
 \section{\label{conclusion}Conclusions}
-	The Golden-Section Search method is very effective at finding the extrema of functions, however it seems to take an exceptional amount of iterations to achieve small tolerances. Additionally, the method requires calculating $a_1$ and $b_1$ every iteration which inefficient. In conclusion, the Golden-Section Search Method is very effective at finding extrema and guarantees a solution, but it requires different methods for minimum and maximum and does not seem particularly efficient. 
+	The Newton Divided Differences method is very effective at interpolating functions from a set of points, however the results from this lab may have been much more accurate with the utilization of more input coordinates. Additionally, this method seems to require a degree of precision not always possible with some modern calculators and computers. In conclusion, the Newton Divided Differences Interpolation Method is effective at estimating function. curves, but it requires a significant amount of points to increase its accuracy. 
 
 \pagebreak
 %Appendices
 %Include listings of the source codes, include printed copies of the output files
 \appendix
 	\section{Appendix A}
-%            		\begin{figure}[htp]
-%            			\centering
-%            			\includegraphics[width=1.0\linewidth]{}
-%            		\end{figure}
+            	\begin{figure}[h]
+            		\centering
+            		\includegraphics[width=1.0\linewidth]{plot.png}
+            	\end{figure}
+		
+	\newpage
+	\section{Appendix B}
+            	\begin{figure}[h]
+            		\centering
+            		\includegraphics[width=.8\linewidth]{pythonCode.png}
+            	\end{figure}
+		
+		
+		
 
 
 \end{document}
