@@ -24,9 +24,9 @@
 \setlength\parskip{\baselineskip}
 
 %prevent hyphenation of words
-\emergencystretch=\maxdimen
+%\emergencystretch=\maxdimen
 \hyphenpenalty=10000
-\hbadness=10000
+%\hbadness=10000
 
 \begin{document}
 
@@ -65,14 +65,30 @@
 	
 	$\displaystyle\int_{0.0}^{0.8}\!{0.2+25x-200x^2+675x^3-900x^4+400x^5}\,\mathrm{d}x$
 	 
-	 The three methods used to solve the above definite integral were the Newton-Cotes Trapezoidal Method, the Newton-Cotes Simpson method, and the Gaussian Quadrature method. The Trapezoid method was used with 2-, 4-, and 6-subintervals, the Simpson method was used with five subintervals, and the Gaussian Quadrature was used with two subintervals.
+	 The two methods used to solve the above definite integral were the Newton-Cotes Trapezoidal Method and the Newton-Cotes Simpson method. The Trapezoid method was used with 2-, 4-, and 6-subintervals, while the Simpson method was used with five subintervals.
 
 %Theory-Analysis: 5pts
 %State assumptions and develop equations
 \section{\label{sec:theory}Theory-Analysis}
+	The Newton-Cotes Trapezoidal method is an integration method based on splitting up an integral into $n$ subintervals, drawing a straight line between each pair of $f(x_n)$ and $f(x_{n+1}$ values to create a series of trapezoids. These trapezoids can then be used to estimate the integral value of the function. The area of a trapezoid can be represented by the function $A=\frac{h}{2}left(a+b)$ where h is the width of the trapezoid, $a$ is the height of the left trapezoid edge, and $b$ is the height of the right trapezoid edge. The fourth edge of the trapezoid is not needed to find the area. By replacing $a$ with $x_i$ and $b$ with $x_{i+1}$ then creating a summation from $i=0$ to $i=n$, the function can be rewritten as:
 	
+	\begin{equation*} I = \frac{h}{2} \left[f(x_0)+2\sum_{i=1}^{n-1}{f(x_i)}+f(x_n)\right] \end{equation*}
 	
-	In this lab I made the assumption that the actual value of the integral is 1.640533333.
+	The middle sum term of the bracketed equation is multiplied by two because each subinterval's $y$-value will be used twice, except for the first and last points.
+	
+	Simpson's integral estimation equation is an extension of the Newton-Cotes method, but adds the midpoint of each subinterval into the estimation function to make the estimate more accurate by using three points on each subinterval instead of two. It uses a Lagrange polynomial interpolation to generate a standard second-degree curve along these three points and then estimates the area. The function for this interpolated line is much more complicated than the trapezoid area function:
+	
+	\begin{equation*} y_i = f(x_i) \frac{(x-x_{i+1})(x-x_{i+2})}{(x_i-x_{i+1})(x_i-x_{i+2})} + 
+		f(x_{i+1}) \frac{(x-x_{i+1})(x-x_{i+2})}{(x_{i+1}-x_i)(x_{i+1}-x_{i+2})} + 
+	\end{equation*}\begin{equation*}
+		f(x_{i+2}) \frac{(x-x_{i+1})(x-x_{i+2})}{(x_{i+2}-x_i)(x_{i+2}-x_{i+1})}
+	\end{equation*}
+	
+	When summed from $i=0$ to $i=n$, the equation is simplified to:
+	
+	\begin{equation*} I = \frac{h}{3} \left[f(x_0)+4\!\!\!\sum_{i=1, 3, 5...}^{n-1}{\!\!\!f(x_i)}+2\!\!\!\sum_{i=2, 4, 6...}^{n-1}{\!\!\!f(x_i)}+f(x_n)\right] \end{equation*}
+	
+	For the purpose of testing it was assumed that the actual value of the integral is 1.640533333.
 
 	 
 %Numerical Solution: 20pts
@@ -91,96 +107,51 @@
 	 
 	 \begin{equation*} I = \frac{h}{2} \left[f(x_0)+2\sum_{i=1}^{n-1}{f(x_i)}+f(x_n)\right] \end{equation*}
 	 
-	 This is a summation of all of the trapezoids between each limit of the integral when there is $n$ subintervals with each $x$ value representing the vertical lines dividing the subintervals.
+	 This is a summation of all of the trapezoids between each limit of the integral when there is $n$ subintervals with each $x$ value representing the vertical lines dividing the subintervals. $h$ is equivalent to $a$
 	 
 	 The Simpson formula is very similar to the Trapezoidal formula, except that it uses the midpoint of each subinterval as well as the end points when estimating the integral value.
 	 
 	 \begin{equation*} I = \frac{h}{3} \left[f(x_0)+4\!\!\!\sum_{i=1, 3, 5...}^{n-1}{\!\!\!f(x_i)}+2\!\!\!\sum_{i=2, 4, 6...}^{n-1}{\!\!\!f(x_i)}+f(x_n)\right] \end{equation*}
-	 
-	 The Gaussian Quadrature method is slightly different from the other integration methods. It only works on the interval $[-1, 1]$ and adds constraints on the integral equation to reduce the error. This method assumes that there will be zero integration error if, and only if, the following four conditions are met on the integral of $f(x)$ from -1 to 1:
-	 
-	 \begin{enumerate}
-	 \item \begin{equation*}f=1::\int_{-1}^{1}{1\mathrm{d}x}=2=c_0f(x_0)+c_1f(x_1)=c_0+c_1\end{equation*}
-	 \item \begin{equation*}f=x::\int_{-1}^{1}{x\mathrm{d}x}=0=c_0x_0+c_1x_1\end{equation*}
-	 \item \begin{equation*}f=x^2::\int_{-1}^{1}{x^2\mathrm{d}x}=\frac{2}{3}=c_0x_0^2+c_1x_1^2\end{equation*}
-	 \item \begin{equation*}f=x^3::\int_{-1}^{1}{x^3\mathrm{d}x}=0=c_0x_0^3+c_1x_1^3\end{equation*}
-	 \end{enumerate}
-	 
-	 These equations can be used to make the following:
-	 
-	 \begin{equation*}x_0=-x_1\quad \text{by symmetry}\end{equation*}
-	 \begin{equation*}c_0=c_1\end{equation*}
-	 \begin{equation*}\frac{2}{3}=2x_0^2 \quad\rightarrow\quad x_0=\pm\sqrt{\frac{1}{3}}\end{equation*}
-	 \begin{equation*}x_0=\sqrt{\frac{1}{3}}\quad\quad x_1=-\sqrt{\frac{1}{3}}\end{equation*}
-	 
-	 These, in turn, all lead to the full integral equation that we actually care about:
-	 
-	 \begin{equation*}\int_{-1}^{1}{f(x)\mathrm{d}x}=f\left(-\frac{1}{\sqrt{3}}\right)+f\left(\frac{1}{\sqrt{3}}\right)\end{equation*}
-	 
-	However this only works on that specific integral and the integral that is being solved must be morphed so that it's limits of integration match $[-1,1]$.
 
 
 %Results and Discussion: 45pts
 %Tabulate and plot the results, compare results, and discuss the accuracy of results
 \section{\label{sec:results}Results and Discussion}
-    	The table of the divided differences values and coefficients (rounded to four decimal places) as described in the Numerical Solution Section is shown below:
+    	The table depicting the various integral values is shown below:
 	
 	\begin{table}[h]
 	\centering
-	\begin{tabular}{>{$}c<{$} >{$}c<{$} >{$}c<{$} >{$}c<{$} >{$}c<{$}}
-	x \text{ input} & \text{DD 1} & \text{DD 2} & \text{DD 3} & \text{DD 4}\\
-	1.0 & 0.0 &&&  \\
-	&& [y_0, y_1]=0.4621 && \\
-	4.0 & 1.3863 && [y_0, y_1, y_2]=-0.1969 \\
-	&& [y_1, y_2]=-0.3254 & & [y_0, y_1, y_2, y_3]=0.1450 \\
-	5.0 & 1.0609 && [y_0, y_1, y_2]=0.5281 \\
-	&& [y_2, y_3]=0.7308 && \\
-	6.0 & 1.7918 &  &  \\
+	\begin{tabular}{l | >{$}c<{$} | >{$}c<{$}}
+	\textbf{Method} & \textbf{Value} & \textbf{Percentage Error} \\\hline
+	By-Hand Integration & 1.6405333333333333 & 0.0000\% \\\hline
+	Trapezoid Rule (2 points) & 0.5312000000000001 & 67.620\% \\
+	Trapezoid Rule (4 points) & 0.6240000000000006 & 61.964\% \\
+	Trapezoid Rule (6 points) & 0.8981816186556900 & 45.251\% \\
+	Trapezoid Rule (8 points) & 1.1246500000000006 & 31.446\% \\\hline
+	Simpson Rule (4 points) & 0.587733333333333 & 64.174\% \\
+	Simpson Rule (6 points) & 0.9335601280292622 & 43.094\% \\
+	Simpson Rule (8 points) & 1.1645000000000005 & 29.017\% \\
 	\end{tabular}
 	\end{table}
 	
-	The final polynomial is therefore:
-	
-	\begin{equation*}
-	f(x) = 0.4102249 + 0.3285789(x-1.0) + 0.0189155(x-1.0)(x-4.0) + 0.0078654(x-1.0)(x-4.0)(x-5.0)
-	\end{equation*}
-	
-	Simplified:
-	
-	\begin{equation*}
-	f(x) = 0.0078654x^3 - 0.0597385x^2 + 0.462098x + 0
-	\end{equation*}
-	%$(C)x^3+(-B-10C)x^2+(A+5B+29C)x+(-A+4B-20C)$
-	\newpage
-	Below is the graph of the interpolated polynomial, the initial input coordinates, and the estimated value for ln(2):
-%	\begin{figure}[htp]
-%            			\centering
-%            			\includegraphics[width=1.0\linewidth]{}
-%            		\end{figure}
+	Based on these results, the Simpson Method converges faster and generally has a lower error when using a similar amount of points as the Trapezoid Rule. However, the error for the Simpson method increases by 20-30\% when there is an odd number of points, so on average the Trapezoid Rule is more effective. However when the number of points is predetermined to be even then the Simpson Method will be more accurate.
 	
 
 
 %Conclusions: 20pts
 %Comment on the efficiency of the solvers
 \section{\label{conclusion}Conclusions}
-	The Newton Divided Differences method is very effective at interpolating functions from a set of points, however the results from this lab may have been much more accurate with the utilization of more input coordinates. Additionally, this method seems to require a degree of precision not always possible with some modern calculators and computers. In conclusion, the Newton Divided Differences Interpolation Method is effective at estimating function. curves, but it requires a significant amount of points to increase its accuracy. 
+	Both the Simpson Method and the Trapezoid Rule are very effective at estimating definite integral functions but the Simpson Method routinely resulted in more accurate integrals. To contrast that, the Trapezoidal Rule was considerably easier to implement and works correctly regardless of the number of subintervals, while the Simpson Method requires an even number of points to produce an accurate measurement. In conclusion, the Simpson Method is more accurate, but only when the number of subintervals is even. 
 
 \pagebreak
 %Appendices
 %Include listings of the source codes, include printed copies of the output files
 \appendix
-%	\section{Appendix A}
-%            	\begin{figure}[h]
-%            		\centering
-%            		\includegraphics[width=1.0\linewidth]{}
-%            	\end{figure}
-%		
-%	\newpage
-%	\section{Appendix B}
-%            	\begin{figure}[h]
-%            		\centering
-%            		\includegraphics[width=.8\linewidth]{}
-%            	\end{figure}
+	\section{Appendix A}
+            	\begin{figure}[h]
+            		\centering
+            		\includegraphics[width=1.0\linewidth]{PythonCode.png}
+            	\end{figure}
 		
 		
 		

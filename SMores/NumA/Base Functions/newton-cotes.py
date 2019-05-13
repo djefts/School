@@ -28,14 +28,19 @@ def simpson(n, h, x):
 
 a = 0.0
 b = 0.8
-t = 2
+t = 4
 h = (b - a) / t
 x = [0]
 for i in range(t - 1):
     x.append(x[len(x) - 1] + h)
 print("%d x values:" % len(x), x)
-# print("Expected:", 2.434782478661022043330862641718147463249065528328797272173)
 
-print("Expected:", 1.640533333)
-print("Trapezoid:", trap_rule(t, h, x))
-#print("Simpson:", simpson(t, h, x))
+actual = 1.640533333
+trap = trap_rule(t, h, x)
+simp = simpson(t, h, x)
+
+print("\nExpected:", actual)
+print("Trapezoid:", trap)
+print("Simpson:", simp)
+print("\nTrapezoid Error:", abs(trap-actual)/actual * 100)
+print("Simpson Error:", abs(simp-actual)/actual * 100)

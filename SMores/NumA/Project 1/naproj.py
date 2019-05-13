@@ -92,7 +92,7 @@ def Guass(A):
 
 
 guess=np.array([1,2,3])
-#print(df(guess))
+#print(dydx(guess))
 for n in range(10):
     print('round',n)
     print(guess)
@@ -119,4 +119,4 @@ for n in range(10):
     print('x',(guess))
     print('fx',ff(guess))
 
-    #print('jac',df(guess))
+    #print('jac',dydx(guess))
