@@ -39,7 +39,7 @@ public class Solution {
             return s;
         }
         StringBuilder sb = new StringBuilder(s);
-        for(int i = 0; i < sb.length() - 1; i++) {
+        for(int i = 0; i < sb.length() - 2; i++) {
             count++;
             if(sb.charAt(i) == sb.charAt(i + 1)) {
                 sb.deleteCharAt(i);
