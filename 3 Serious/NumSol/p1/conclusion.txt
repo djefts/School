@@ -1,0 +1,37 @@
+\section{Discussion/Conclusions}\label{S:5}
+Text introducing this subsection
+Interpret your solution physically,
+what we learn from it,
+comment on strengths and weaknesses of the solution method,
+any nice features you want to brag about,
+possible ways to improve it (e.g. how to make it more accurate, more efficient).
+
+Part I
+The different solutions for using a computer to solve a non-stiff equation all had their strengths and weaknesses. From
+the beginning, Euler's Method was the easiest to implement and also was the closest to the estimated exact solution
+using MATLAB's ode45 method. However, both the Implicit Euler's Method and the Implicit Trapezoidal Method required
+auxiliary hand-derived equations to work properly which means that the computational time analysis for these solution
+methods is misleading. That said, the Implicit Euler Method was both the most exact and the fastest for the estimation
+of a non-stiff equation. When solving stiff equations, the best method is any of the Runge-Kutta methods because they
+work quickly, are almost as accurate as the other methods, and work for any number of ODE's in the original problem set.
+
+Part II
+The solution for Sergio Rinaldi's emotional cycles was interesting in that the three emotions peaked and fell together,
+even though they were different emotions about different people. The RK45 method used to estimate the solutions for the
+three dependent differentials was very accurate, and modeled the situation very well. The Runge-Kutta Method worked very quickly and
+efficiently, and the differentials themselves created some really interesting curves when plotted against each other.
+
+Part III
+The solution of the Lorenz equations is best modeled in a 3-Dimensional environment due to the nature of the problem.
+The problem itself is based on the chaotic nature of many systems where the initial conditions are not known. The
+equations used for this paper represent a simplified model of atmospheric convection wherein the fluid layer is
+uniformly heated from one side and uniformly cooled from the other. The 3D model represents an estimation of the
+convection pattern over time, where the fluid makes a two-lobed curve throughout the space. The number of curves and
+the distance between the bands of the curves changes chaotically based on the initial values used and the constants
+used in the differential equations (10, 28, and 8/3 in this paper). The 2D model of the three solutions over time
+shows the rapid oscillation of the fluid, where the fluid crosses over its previous path many times over and does not
+move in a repeating or uniform pattern, at least over the interval [0, 20]. The Adams-Bashfoth-Moulton method is able to
+estimate the solution very accurately, but problems arose due to the fact that it requires four initial points to get
+started. Additionally, a step size of 0.01 was required in order for the system to not break with numbers that were
+essentially positive or negative infinity. However it was a very nice solving method that worked very quickly and
+required little computational power, even with over 2000 steps and three dependent equations.

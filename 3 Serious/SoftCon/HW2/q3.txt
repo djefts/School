@@ -1,0 +1,15 @@
+Can you define a custom generic exception class? Why?
+
+No, because the type of the generic exception object {Generic_Exception<E>} would not be available at runtime.
+This means that the following example could not work:
+
+try {
+    someMethod();
+} catch(Generic_Exception<Integer> ge) {
+    handleIntegerException();
+} catch(Generic_Exception<String> ge) {
+    handleStringException();
+}
+
+because the JVM would not be able to tell the difference between Generic_Exception<Integer> and
+Generic_Exception<String> at runtime. Integers and Strings are not "reifiable", while ints and booleans are.

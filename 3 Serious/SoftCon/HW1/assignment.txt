@@ -1,0 +1,18 @@
+Submit the .java files for the following questions:
+
+1. Write a Java program that prompts the user to enter two integers and
+    displays their sum. Use exception handling to prompt the user for
+    reading the number again if the input is incorrect.
+
+2. Write a Java program that meets the following requirements:
+    - Creates an array with 100 randomly chosen integers.
+    - Prompts the user to enter the index of the array, then displays the
+        corresponding element value. If the specified index is out of
+        bounds, display the message Out of Bounds.
+
+3. Write a Java program that prompts the user to enter a number between
+    0 and 10 and displays the entered number. Use an "assert statement"
+    to determine whether the user entered a number within the valid
+    range. If the user entered a number that is out of range, the
+    program must report an error with assertion error message
+    "The entered number is out of range".

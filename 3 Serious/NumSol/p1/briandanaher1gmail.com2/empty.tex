@@ -1,0 +1,265 @@
+%% It is just an% Latex template for MA305 Project Report, Spring 2019
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{article}
+\usepackage{graphicx}
+\usepackage[pdftex]{color}
+\usepackage{multicol}
+\newcommand{\cred} {\textcolor{red}}
+\usepackage{fancyhdr}
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}}      % Horizontal rule 
+\usepackage{listings}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+backgroundcolor=\color{backcolour},   
+commentstyle=\color{codegreen},
+keywordstyle=\color{magenta},
+numberstyle=\tiny\color{codegray},
+stringstyle=\color{codepurple},
+basicstyle=\footnotesize,
+breakatwhitespace=false,         
+breaklines=true,                 
+captionpos=b,                    
+keepspaces=true,                 
+numbers=left,                    
+numbersep=5pt,                  
+showspaces=false,                
+showstringspaces=false,
+showtabs=false,                  
+tabsize=2
+}
+\lstset{style=mystyle}
+\begin{document}
+%%%%%%%%%% TITLE PAGE %%%%%%%%%%
+\begin{center}
+{\it MA448, Fall 2019  \hfill Embry-Riddle Aeronautical University
+ }\\
+\horrule{0.5pt} \\[0.4cm]
+{\bf \Large  % change this
+Project 1: Numerical Solution of ODEs
+}\\
+\horrule{2pt} \\[5cm]
+%%%%%%%%%%%%%%%%%%%%
+Brian, David, Jack Nguyen % change this
+\\[0.4cm]
+\today % change this
+\end{center}
+\thispagestyle{empty}
+\newpage
+\begin{abstract}
+\end{abstract}
+\tableofcontents 
+\newpage
+%%%%%%%%%%  %%%%%%%%%%
+\section{Introduction}\label{S:1}
+%The text of this section.
+It is a common occurrence in the natural sciences and engineering to encounter
+differential equations which either cannot be solved analytically, or are too 
+complex and time-consuming to attempt. For practical purposes, an approximation
+of the solution is often sufficient to meet the demands of the problem, and a
+multitude of algorithms and techniques have been developed to approximate 
+ordinary differential equations (ODEs). This paper aims to evaluate these techniques by 
+comparing them both to each other and to results published by professional mathematicians, 
+and to educate the reader by solving a practical problem.
+\section{Problem Statement}\label{S:2}
+%The text of this section. 
+State fully and precisely the mathematical problem.  
+Explain meaning of all symbols used. Make clear what is given and what we are 
+looking for. 
+\subsection{Part I}\label{S:2.1}
+%
+In this section, a multitude of different methods for solving ODEs are compared 
+to one another by solving both a stiff and non-stiff equation. A stiff equation
+is one in which the step size of the numerical methods used must be drastically
+changed over the domain of the solution to maintain absolute stability. The 
+methods evaluated in this way are the explicit implicit Euler's Method, the
+implicit Euler's Method, the Trapezoidal Method, the Classical Runge-Kutta 
+fourth-order Method, the Fourth-order Adams-Bashforth-Moulton Method, and MATLAB's
+builtin ODE solver ode45. These methods are evaluated by comparing the relative
+errors of each solution relative to ode45 (a thoroughly tested algorithm), and 
+the time required to solve each method.
+\subsection{Part II}\label{S:2.2}
+%
+In the second part of this paper, a numerical method is developed for solving the
+system of differential equations presented in the paper “Laura and Petrarch: An 
+Intriguing Case of Cyclical Love Dynamics”. This paper aimed to develop a mathematical
+model to simulate the emotional and inspirational cycle of the Italian poet Petrarch
+and his love for Laura. The efficacy of the solver developed for this problem is
+analysed by comparing the results to those in the paper.
+\subsection{Part III}\label{S:2.3}
+%
+This paper concludes with simulating a pertinent real-world problem: that of the 
+Lorenz problem, which arises in the study of dynamical systems. The Lorenz problem
+is comprised of a series of three autonomous ODEs, and is noteworthy because of
+the famous Lorenz attractor, which was discovered by analyzing this type of 
+problem. The problem with oe(???) particular set of initial conditions and coefficients
+is solved using the fourth-order Adams-Bashforth-Moulton Method.
+\section{Method/Analysis}\label{S:3}
+%Text introducing this section
+Begin with naming or characterizing the method/approach to be used, perhaps explain
+the basic idea behind it, to what type of problems it applies, under what 
+conditions, what it achieves, what are its main features, advantages, 
+disadvantages. Justify why it is applicable to this problem, stating clearly any 
+assumptions you need to make about the problem for the method to apply. Name some 
+other methods/approaches one could use, and if/why your method may be preferable.
+\subsection{Part I}
+%
+Text introducing this subsection. 
+\subsection{Part II}
+%
+Text introducing this subsubsection. 
+\subsection{Part III}
+%
+Text introducing this subsubsection. 
+\section{Solutions/Results}\label{S:4}
+%Text introducing this section
+This section contains the presentation of your solution and results.
+Describe your implementation of the method(s) for this specific problem, any 
+special features, numerical methods implementation  strategy, choices of any 
+parameters, stopping criteria, etc.
+Present the results in words and plots (annotate by hand if necessary), explain 
+what they mean. Include your code in an Appendix. 
+\subsection{A subsection}
+%
+Text introducing this subsection. 
+\subsubsection{A subsubsection}
+%
+Text introducing this subsubsection. 
+\subsubsection{A further subdivision}
+%
+Text introducing this subsubsection. 
+\section{Discussion/Conclusions}\label{S:5}
+%Text introducing this subsection
+Interpret your solution physically, what we learn from it, comment on strengths and
+weaknesses of the solution method, any nice features you want to brag about, 
+possible ways to improve it (e.g. how to make it more accurate, more efficient), as
+appropriate.
+\begin{thebibliography}{100}
+%List the materials used in the project. e.g., books, papers, web resources, codes, etc. 
+\bibitem{a1}  
+Heath, Michael T., Scientific Computing: An Introductory Survey, McGraw Hill, 2002.
+%
+%\bibitem{a2}
+%
+%\bibitem{a3} 
+\end{thebibliography}
+%\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% section Appendix %%%%%%%%%%%%%%%%%%%%%
+\newpage
+\appendix 
+\setcounter{section}{0}           
+\section{Codes}\label{S:A}
+%
+Text introducing this appendix. Subsections and further divisions can also be used 
+in appendices. 
+\begin{lstlisting}[language=Matlab]
+%Brian Danaher
+%Group 2, problem 1a
+
+clear;
+clc;
+
+%Initial Setup
+y0 = 0;
+t0 = 0;
+n = 65;
+tmax = 10;
+h = (tmax-t0)/n;
+explicit_euler = y0;
+implicit_euler = y0;
+trapezoidal = y0;
+RK4 = y0;
+AB4 = y0;
+matlab = y0;
+t = t0;
+tmat = linspace(t, tmax, 65);
+
+%Function definition
+fy = @(t,y) 3+5*sin(t)+0.2*y;
+
+tic
+%Explicit Euler Method
+for a=1:1:n-1
+    explicit_euler = [explicit_euler, explicit_euler(1,a)+(h*fy(t, explicit_euler(1,a)))];
+    t = t+h;
+   
+end
+explicit_euler_time = toc;
+
+%Implicit Euler Method
+t = t0;
+
+tic
+for b=1:1:n-1
+    t = t+h;
+    implicit_euler = [implicit_euler, (implicit_euler(1,b)+3*h+5*h*sin(t))/(1-0.2*h)];
+    
+end
+implicit_euler_time = toc;
+
+%Trapezoidal Method
+t = t0;
+
+tic
+for c=1:1:n-1
+    t1 = t;
+    t2 = t+h;
+    
+    trapezoidal = [trapezoidal, (trapezoidal(1,c)+3*h+(5*h/2)*sin(t1)+(h/10)*trapezoidal(1,c)+(5*h/2)*sin(t2))/(1-h/10)];
+    t = t+h;
+    
+end
+trapezoidal_time = toc;
+
+%4th-order Classical RK Method
+t = t0;
+
+tic
+for d=1:1:n-1   
+    k1y = fy(t, RK4(1,d));
+    k2y = fy(t+(h/2), RK4(1,d)+(k1y*(h/2)));
+    k3y = fy(t+(h/2), RK4(1,d)+(k2y*(h/2)));
+    k4y = fy(t+h, RK4(1,d)+k3y*h);
+    
+    RK4 = [RK4, RK4(1,d)+(h*(k1y+2*k2y+2*k3y+k4y)/6)];
+    t = t+h;
+    
+end
+RK4_time = toc;
+    
+%4th-order Adams Bashforth Method
+
+%We will use the Explicit Euler Method calculated prior to start
+abmat = [explicit_euler(1,1), explicit_euler(1,2), explicit_euler(1,3), explicit_euler(1,4)];
+t = t0+(4*h);
+
+tic
+for e=4:1:n-1  
+    ybar = abmat(1,e)+(h/24)*(55*fy(t, abmat(1,e))-59*fy(t-h, abmat(1,e-1))+37*fy(t-2*h, abmat(1,e-2))-9*fy(t-3*h, abmat(1,e-3)));
+    fbar = fy(t+h, ybar);
+    abmat = [abmat, abmat(1,e)+(h/24)*(9*fbar+19*fy(t, abmat(1,e))-5*fy(t-h, abmat(1,e-1))+fy(t-2*h, abmat(1,e-2)))];
+    t=t+h;
+    
+end
+ABM_time = toc;
+
+%ode45
+tic
+[ode45t, ode45y] = ode45(fy, [0,10], 0);
+ode45_time = toc;
+
+%Plot the data
+plot(tmat, explicit_euler, '-o')
+hold on
+plot(tmat, RK4, '-x')
+plot(ode45t, ode45y, '-*')
+plot(tmat, abmat, '-o')
+plot(tmat, implicit_euler, '-o')
+plot(tmat, trapezoidal, '-o')
+
+legend( 'Explicit Euler', 'RK4', 'ode45', 'Adams-Bashforth-Moulton', 'Implicit Euler', 'Trapezoidal')
+\end{lstlisting} 
+\end{document}
+%% Write your code here.

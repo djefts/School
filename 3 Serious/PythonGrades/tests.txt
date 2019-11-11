@@ -1,0 +1,26 @@
+grades: 5
+
+people:      expected:
+hello   60      F
+world   92      P
+die     18      F
+kill    70      P
+me      83      P
+
+output:
+"""
+hello, 60, Fail
+world, 92, Pass
+die, 18, Fail
+kill, 70, Pass
+me, 83, Pass
+3 students pass
+2 students failed
+"""
+
+grades: -2
+
+output:
+"""
+Invalid number of grades
+"""

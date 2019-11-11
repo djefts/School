@@ -1,0 +1,9 @@
+You do not have an error check for a negative number of grades.
+
+You do not print anything when the user enters a negative number of grades.
+
+Please write at the top of the file when you work with another student on the homework. Much of your code is exactly like
+
+You don't print out most of the information you were supposed to.
+
+There were a few syntax errors in your code. Please run your code and double check it works next time.
